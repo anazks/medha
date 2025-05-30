@@ -603,15 +603,53 @@ const addDeliveryAddress = async (req, res) => {
     
     }
 }
+const crypto = require('crypto');
+
 const verifypayment = async (req, res) => {
     try {
         console.log(req.body, "req.body");
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+        // Generate expected signature
+        const generated_signature = crypto
+            .createHmac('sha256', "Qtsm0Mlbo8tuhRk3ZMIr6oAK")
+            .update(`${razorpay_order_id}|${razorpay_payment_id}`)
+            .digest('hex');
+
+        if (generated_signature === razorpay_signature) {
+            console.log("Payment is successful");
+            return res.json({ message: "Payment is successful", success: true });
+        } else {
+            console.log("Payment verification failed");
+            return res.json({ message: "Payment verification failed", success: false });
+        }
     } catch (error) {
-        
+        console.error("Error verifying payment:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
+const successPay = async(req,res)=>{
+    try {
+        res.render("user/CorderConfiramtion", { homepage: true, user: req.session.user });
+    } catch (error) {
+        console.log(error);
+        req.session.alertMessage = "Couldn't perform signup Please Retry (with a new email) !!!";
+        res.redirect("/users/home")
+    }
+}
+const failed = async(req,res)=>{
+    try {
+        res.render("user/Failed", { homepage: true, user: req.session.user });
+    } catch (error) {
+        console.log(error);
+        req.session.alertMessage = "Couldn't perform signup Please Retry (with a new email) !!!";
+        res.redirect("/users/home")
     }
 }
 module.exports = {
+    failed,
+    successPay,
     getUserHomePage,
     getUserLoginPage,
     getUserSignupPage,

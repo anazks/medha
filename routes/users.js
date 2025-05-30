@@ -28,7 +28,9 @@ const {
   relatedView,
   checkout,
   addDeliveryAddress,
-  verifypayment
+  verifypayment,
+  successPay,
+  failed
 } = require("../controllers/user-controller")
 
 const { checkUser } = require("../middlewares/checkUser");
@@ -70,5 +72,8 @@ router.get('/relatedView/:id',checkUser,relatedView)
 router.get('/checkout',checkUser,checkout)
 router.post('/addDeliveryAddress',checkUser,addDeliveryAddress)
 router.post('/verify-payment',checkUser,verifypayment)
-module.exports = router;
+router.get('/successPay', checkUser,successPay)
+router.get('/failed', checkUser,failed)
 
+
+module.exports = router;
