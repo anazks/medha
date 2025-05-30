@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Payment</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 10px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    .paymentDiv {
+      width: 100%;
+      max-width: 500px;
+      padding: 2rem;
+    }
+
+    .paymentCard {
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .headingText {
+      color: #333;
+      font-size: 2.4rem;
+      font-weight: 700;
+    }
+
+    .headingImage {
+      height: 3rem;
+      max-width: 10rem;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 2rem 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #666;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border: 1px solid #d1d1d1;
+      border-radius: 6px;
+      font-size: 1.6rem;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
+
+    .name,
+    .number {
+      margin-bottom: 2rem;
+    }
+
+    .securityInfo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .date,
+    .cvc {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .date input,
+    .cvc input {
+      width: 100%;
+    }
+
+    .payButton {
+      width: 100%;
+      padding: 1.5rem;
+      background-color: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 2rem;
+    }
+
+    .payButton:hover {
+      background-color: #357abD;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 480px) {
+      .paymentCard {
+        padding: 1.5rem;
+      }
+
+      .securityInfo {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="paymentDiv">
+    <div class="paymentCard">
+      <div class="heading">
+        <h1 class="headingText">Payment Details</h1>
+        <img class="headingImage" src="https://mybalitrips.com/static/images/visa-mastercard.png" alt="Payment Methods" />
+      </div>
+
+      <hr />
+
+      <form id="paymentForm" action="/users/payment" method="post" novalidate>
+        <div class="name">
+          <label for="cardholderName">Cardholder's Name</label>
+          <input 
+            type="text" 
+            id="cardholderName" 
+            name="cardholderName" 
+            pattern="[A-Za-z\s]+" 
+            title="Please enter only letters"
+            required 
+            placeholder="John Doe"
+          />
+        </div>
+
+        <div class="number">
+          <label for="cardNumber">Card Number</label>
+          <input 
+            type="text" 
+            id="cardNumber" 
+            name="cardNumber" 
+            pattern="[0-9]{16}" 
+            maxlength="16" 
+            required 
+            placeholder="1234 5678 9012 3456"
+          />
+        </div>
+
+        <div class="number">
+          <label for="amount">Total Amount</label>
+          <input 
+            type="number" 
+            id="amount" 
+            name="amount" 
+            readonly 
+            value="{{total}}"
+            step="0.01" 
+            min="0"
+          />
+        </div>
+
+        <div class="securityInfo">
+          <div class="date">
+            <label>Expiry Date</label>
+            <div style="display: flex; gap: 1rem;">
+              <input 
+                type="number" 
+                name="expiryMonth" 
+                placeholder="MM" 
+                min="01" 
+                max="12" 
+                required 
+                style="width: 50%;"
+              />
+              <input 
+                type="number" 
+                name="expiryYear" 
+                placeholder="YY" 
+                min="24" 
+                max="99" 
+                required 
+                style="width: 50%;"
+              />
+            </div>
+          </div>
+
+          <div class="cvc">
+            <label for="cvc">CVC</label>
+            <input 
+              type="text" 
+              id="cvc" 
+              name="cvc" 
+              pattern="[0-9]{3}" 
+              maxlength="3" 
+              required 
+              placeholder="123"
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="payButton">Complete Payment</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+      const cardholderName = document.getElementById('cardholderName');
+      const cardNumber = document.getElementById('cardNumber');
+      const expiryMonth = document.querySelector('input[name="expiryMonth"]');
+      const expiryYear = document.querySelector('input[name="expiryYear"]');
+      const cvc = document.getElementById('cvc');
+
+      // Name validation
+      if (!/^[A-Za-z\s]+$/.test(cardholderName.value)) {
+        event.preventDefault();
+        cardholderName.setCustomValidity('Please enter a valid name');
+        cardholderName.reportValidity();
+        return;
+      }
+
+      // Card number validation (Luhn algorithm)
+      if (!validateCardNumber(cardNumber.value)) {
+        event.preventDefault();
+        cardNumber.setCustomValidity('Invalid card number');
+        cardNumber.reportValidity();
+        return;
+      }
+
+      // Expiry date validation
+      const currentYear = new Date().getFullYear() % 100;
+      const currentMonth = new Date().getMonth() + 1;
+      
+      if (parseInt(expiryYear.value) < currentYear || 
+          (parseInt(expiryYear.value) === currentYear && parseInt(expiryMonth.value) < currentMonth)) {
+        event.preventDefault();
+        expiryMonth.setCustomValidity('Card has expired');
+        expiryMonth.reportValidity();
+        return;
+      }
+
+      // CVC validation
+      if (!/^\d{3}$/.test(cvc.value)) {
+        event.preventDefault();
+        cvc.setCustomValidity('Invalid CVC');
+        cvc.reportValidity();
+        return;
+      }
+    });
+
+    function validateCardNumber(number) {
+      // Remove non-digit characters
+      number = number.replace(/\D/g, '');
+      
+      // Luhn algorithm
+      let sum = 0;
+      let isEven = false;
+      
+      for (let i = number.length - 1; i >= 0; i--) {
+        let digit = parseInt(number.charAt(i), 10);
+        
+        if (isEven) {
+          digit *= 2;
+          if (digit > 9) {
+            digit -= 9;
+          }
+        }
+        
+        sum += digit;
+        isEven = !isEven;
+      }
+      
+      return (sum % 10 === 0);
+    }
+  </script>
+</body>
+</html>

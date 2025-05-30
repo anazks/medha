@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Single Product View</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .product-image {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            flex: 2;
+            padding: 30px;
+            position: relative;
+        }
+
+        .product-info h1 {
+            font-size: 2rem;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 1.8rem;
+            color: #e63946;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .price i {
+            margin-right: 10px;
+            color: #28a745;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .buttons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .buy-now {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .buttons a:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .product-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .product-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-meta-item i {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    {{> userHeader}}
+    <div class="container">
+        <div class="product-wrapper">
+            <div class="product-image">
+                <img src="{{product.images.[0]}}" alt="{{product.productName}}" />
+            </div>
+            <div class="product-info">
+                <h1>{{product.productName}}</h1>
+                <div class="price">
+                    <i class="fas fa-tag"></i>
+                    ₹ {{product.price}}
+                </div>
+                <p class="product-description">{{product.description}}</p>
+                
+                <div class="product-meta">
+                    <div class="product-meta-item">
+                        <i class="fas fa-truck"></i>
+                        <span>{{product.shippingInformation}}</span>
+                    </div>
+                    <div class="product-meta-item">
+                        <i class="fas fa-undo"></i>
+                        <span>{{product.returnPolicy}}</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <p>Sample Product API</p>
+                    {{!-- <a href="/users/addtoCart/{{product._id}}" class="add-to-cart">
+                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                    </a>
+                    <a href="/users/buynow/{{product.id}}" class="buy-now">
+                        <i class="fas fa-bolt"></i> Buy Now
+                    </a> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

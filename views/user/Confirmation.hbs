@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Overview</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-light: #6366f1;
+            --primary-dark: #4338ca;
+            --black: #111827;
+            --white: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --border-radius: 0.375rem;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        body {
+            background-color: var(--gray-50);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--black);
+            letter-spacing: -0.025em;
+        }
+
+        .confirmation-subtitle {
+            font-size: 1rem;
+            color: var(--gray-500);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .confirmation-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background-color: rgba(79, 70, 229, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .confirmation-icon i {
+            font-size: 1.75rem;
+            color: var(--primary);
+        }
+
+        .card {
+            background-color: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background-color: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.125rem;
+            color: var(--black);
+            font-weight: 600;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        .order-item {
+            display: flex;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background-color: var(--gray-100);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .item-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .item-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-seller {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .current-price {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--black);
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            text-decoration: line-through;
+            color: var(--gray-400);
+            margin-left: 0.5rem;
+        }
+
+        .item-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+
+        .meta-item i {
+            margin-right: 0.25rem;
+            color: var(--gray-400);
+            font-size: 0.75rem;
+        }
+
+        .payment-details {
+            margin-top: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .detail-value {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .total-row {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .payment-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-created {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .address-form {
+            margin-top: 2rem;
+        }
+
+        .form-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.375rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            font-size: 0.875rem;
+            transition: all 0.15s ease;
+            background-color: var(--white);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: var(--gray-400);
+        }
+
+        textarea.form-control {
+            min-height: 80px;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn i {
+            margin-right: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -0.5rem;
+        }
+
+        .col-md-6 {
+            flex: 0 0 50%;
+            max-width: 50%;
+            padding: 0 0.5rem;
+        }
+
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            padding: 0 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem auto;
+            }
+            
+            .order-item {
+                flex-direction: row;
+            }
+            
+            .item-image {
+                width: 64px;
+                height: 64px;
+                margin-right: 0.75rem;
+                margin-bottom: 0;
+            }
+            
+            .col-md-6, .col-md-4 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        /* Compact form styling */
+        .compact-form .form-group {
+            margin-bottom: 0.75rem;
+        }
+        
+        .compact-form .form-control {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8125rem;
+        }
+        
+        .compact-form textarea.form-control {
+            min-height: 60px;
+        }
+        
+        .compact-form .form-label {
+            margin-bottom: 0.25rem;
+            font-size: 0.8125rem;
+        }
+        
+        .compact-form .btn {
+            padding: 0.5rem 1rem;
+            font-size: 0.8125rem;
+        }
+
+        /* Payment button styling */
+        #rzp-button1 {
+            margin-top: 1rem;
+        }
+        
+        /* Loading spinner */
+        .spinner-border {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            vertical-align: text-bottom;
+            border: 0.2em solid currentColor;
+            border-right-color: transparent;
+            border-radius: 50%;
+            animation: spinner-border .75s linear infinite;
+        }
+        
+        @keyframes spinner-border {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Error message styling */
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        
+        .is-invalid {
+            border-color: var(--error) !important;
+        }
+        
+        .is-invalid + .error-message {
+            display: block;
+        }
+
+        /* Success message styling */
+        .success-message {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            padding: 0.75rem 1rem;
+            border-radius: var(--border-radius);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Order Confirmation Header -->
+        <div class="confirmation-header">
+            <div class="confirmation-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="confirmation-title">Order Overview</h1>
+            <p class="confirmation-subtitle">Thank you for your purchase! Your order #order_QZujXsPJfj5foa has been received.</p>
+        </div>
+
+        <!-- Order Items -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Order Summary</h3>
+                <span class="text-muted" style="font-size: 0.875rem;">Placed on June 1, 2023</span>
+            </div>
+            <div class="card-body">
+                <div class="order-item">
+                    <div class="item-image">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Shoes">
+                    </div>
+                    <div class="item-details">
+                        <h4 class="item-name">Premium Nike Shoes</h4>
+                        <div class="item-seller">Sold by: Medha CLothings</div>
+                        <div class="item-price">
+                            <span class="current-price">₹18,000</span>
+                            <span class="original-price">₹20,000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Payment Information</h3>
+                <span class="payment-status status-created">Pending Payment</span>
+            </div>
+            <div class="card-body">
+                <div class="detail-row">
+                    <span class="detail-label">Subtotal:</span>
+                    <span class="detail-value">₹18,000</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Shipping:</span>
+                    <span class="detail-value">Free</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Tax:</span>
+                    <span class="detail-value">₹0</span>
+                </div>
+                <div class="detail-row total-row">
+                    <span class="font-weight-bold">Total:</span>
+                    <span class="font-weight-bold">₹18,000</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Order ID:</span>
+                    <span class="detail-value" id="order">order_QZujXsPJfj5foa</span>
+                </div>
+                <div class="mt-3">
+                    <button id="rzp-button1" class="btn btn-primary btn-block">
+                        <i class="fas fa-credit-card"></i> Complete Payment
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delivery Address Form -->
+        <div class="card address-form">
+            <div class="card-header">
+                <h3>Shipping Information</h3>
+            </div>
+            <div class="card-body">
+                <form id="deliveryForm" class="compact-form">
+                    <input type="hidden" name="userId" id="userId" value="user123">
+                    <input type="hidden" name="orderId" id="orderId" value="order_QZujXsPJfj5foa">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Enter your full name" required>
+                                <div class="error-message" id="name-error">Please enter your full name</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="mobile" class="form-label">Mobile Number</label>
+                                <input type="tel" name="mobile" id="mobile" class="form-control" placeholder="Enter mobile number" required>
+                                <div class="error-message" id="mobile-error">Please enter a valid 10-digit mobile number</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine1" class="form-label">Address Line 1</label>
+                        <input type="text" name="addressLine1" id="addressLine1" class="form-control" placeholder="House number, street name" required>
+                        <div class="error-message" id="addressLine1-error">Please enter your address</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="addressLine2" class="form-label">Address Line 2 (Optional)</label>
+                        <input type="text" name="addressLine2" id="addressLine2" class="form-control" placeholder="Apartment, suite, unit, building, floor, etc.">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="city" class="form-label">City</label>
+                                <input type="text" name="city" id="city" class="form-control" placeholder="Enter city" required>
+                                <div class="error-message" id="city-error">Please enter your city</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="state" class="form-label">State</label>
+                                <input type="text" name="state" id="state" class="form-control" placeholder="Enter state" required>
+                                <div class="error-message" id="state-error">Please enter your state</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pincode" class="form-label">Pincode</label>
+                                <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Enter pincode" required>
+                                <div class="error-message" id="pincode-error">Please enter a valid 6-digit pincode</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group form-check">
+                        <input type="checkbox" name="isDefaultAddress" id="isDefaultAddress" class="form-check-input">
+                        <label for="isDefaultAddress" class="form-check-label">Set as default address</label>
+                    </div>
+                    
+                    <button type="submit" id="submitBtn" class="btn btn-primary btn-block mt-2">
+                        <i class="fas fa-save"></i> Save Shipping Details
+                    </button>
+
+                    <div id="success-message" class="success-message">
+                        <i class="fas fa-check-circle"></i> Shipping details saved successfully! You can now proceed with payment.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deliveryForm = document.getElementById('deliveryForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const paymentBtn = document.getElementById('rzp-button1');
+            const successMessage = document.getElementById('success-message');
+            
+            // Form validation and submission
+            deliveryForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Validate form inputs
+                if (!validateForm()) {
+                    return;
+                }
+                
+                // Disable submit button and show loading state
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Saving address...';
+                
+                try {
+                    // Get form data
+                    const formData = {
+                        userId: document.getElementById('userId').value,
+                        orderId: document.getElementById('orderId').value,
+                        name: document.getElementById('name').value,
+                        mobile: document.getElementById('mobile').value,
+                        addressLine1: document.getElementById('addressLine1').value,
+                        addressLine2: document.getElementById('addressLine2').value,
+                        city: document.getElementById('city').value,
+                        state: document.getElementById('state').value,
+                        pincode: document.getElementById('pincode').value,
+                        isDefaultAddress: document.getElementById('isDefaultAddress').checked
+                    };
+                    
+                    // Simulate API call (replace with actual API call)
+                    await simulateApiCall(formData);
+                    
+                    // Show success message
+                    successMessage.classList.add('show');
+                    
+                    // Enable payment button
+                    paymentBtn.disabled = false;
+                    
+                    // Optionally scroll to payment section
+                    paymentBtn.scrollIntoView({ behavior: 'smooth' });
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while saving your address. Please try again.');
+                } finally {
+                    // Reset submit button
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fas fa-save"></i> Save Shipping Details';
+                }
+            });
+            
+            // Input validation on blur
+            document.getElementById('mobile').addEventListener('blur', validateMobile);
+            document.getElementById('pincode').addEventListener('blur', validatePincode);
+            
+            // Payment button click handler
+            paymentBtn.addEventListener('click', async function(e) {
+                e.preventDefault();
+                
+                // First validate the form
+                if (!validateForm()) {
+                    alert('Please complete the shipping information first');
+                    return;
+                }
+                
+                // Check if shipping info was saved
+                if (!successMessage.classList.contains('show')) {
+                    alert('Please save your shipping information first');
+                    return;
+                }
+                
+                // Initialize payment
+                try {
+                    await initializeRazorpay();
+                } catch (error) {
+                    console.error('Payment initialization failed:', error);
+                    alert('Payment failed to initialize. Please try again.');
+                }
+            });
+        });
+        
+        function validateForm() {
+            let isValid = true;
+            
+            // Validate required fields
+            const requiredFields = ['name', 'mobile', 'addressLine1', 'city', 'state', 'pincode'];
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            // Validate mobile and pincode format
+            if (!validateMobile() || !validatePincode()) {
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+        
+        function validateMobile() {
+            const mobileField = document.getElementById('mobile');
+            const mobileValue = mobileField.value.trim();
+            const mobileRegex = /^[0-9]{10}$/;
+            
+            if (!mobileRegex.test(mobileValue)) {
+                mobileField.classList.add('is-invalid');
+                return false;
+            } else {
+                mobileField.classList.remove('is-invalid');
+                return true;
+            }
+        }
+        
+        function validatePincode() {
+            const pincodeField = document.getElementById('pincode');
+            const pincodeValue = pincodeField.value.trim();
+            const pincodeRegex = /^[0-9]{6}$/;
+            
+            if (!pincodeRegex.test(pincodeValue)) {
+                pincodeField.classList.add('is-invalid');
+                return false;
+            } else {
+                pincodeField.classList.remove('is-invalid');
+                return true;
+            }
+        }
+        
+        // Simulate API call for demonstration
+        async function simulateApiCall(addressData) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('Address data saved:', addressData);
+                    resolve({ success: true, message: 'Address saved successfully' });
+                }, 1000);
+            });
+        }
+        
+        // Create Razorpay order (simulated - replace with actual API call)
+        async function createRazorpayOrder() {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({
+                        id: 'order_' + Math.random().toString(36).substr(2, 14),
+                        amount: 1800000, // 18,000 INR in paise
+                        currency: 'INR'
+                    });
+                }, 500);
+            });
+        }
+        
+        async function initializeRazorpay() {
+            try {
+                // First create the order
+                const orderData = await createRazorpayOrder();
+                
+                if (!orderData.id) {
+                    throw new Error('Failed to create order');
+                }
+
+                // Get form values for prefill
+                const name = document.getElementById('name').value;
+                const mobile = document.getElementById('mobile').value;
+                const email = 'customer@example.com'; // You can add an email field if needed
+                
+                var options = {
+                    "key": "rzp_test_xGT71OZKAShDDW", // Replace with your actual Razorpay Key ID
+                    "amount": 10000,
+                    "currency": "INR"
+                    "name": "Medha Clothings",
+                    "description": "Order Payment",
+                    "image": "https://your-company-logo.png",
+                    "order_id": orderData.id,
+                    "handler": function (response) {
+                        // Handle successful payment
+                        alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+                        console.log("Payment Response:", response);
+                        
+                        // Verify payment (you should implement this on your server)
+                        verifyPayment(response);
+                    },
+                    "prefill": {
+                        "name": name,
+                        "email": email,
+                        "contact": mobile
+                    },
+                    "notes": {
+                        "address": document.getElementById('addressLine1').value,
+                        "order_id": document.getElementById('orderId').value
+                    },
+                    "theme": {
+                        "color": "#4f46e5"
+                    },
+                    "modal": {
+                        "ondismiss": function() {
+                            console.log("Payment modal closed");
+                        }
+                    }
+                };
+                
+                var rzp1 = new Razorpay(options);
+                
+                // Handle payment errors
+                rzp1.on('payment.failed', function (response) {
+                    alert("Payment failed: " + response.error.description);
+                    console.log("Payment Failed:", response.error);
+                });
+                
+                rzp1.open();
+                
+            } catch (error) {
+                console.error('Razorpay initialization failed:', error);
+                alert('Payment initialization failed. Please try again.');
+                throw error;
+            }
+        }
+
+        function verifyPayment(paymentResponse) {
+            console.log('Payment verification:', paymentResponse);
+            
+            // In a real application, send this to your server for verification
+            const verificationData = {
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_signature: paymentResponse.razorpay_signature,
+                orderId: document.getElementById('orderId').value
+            };
+            
+            // Simulate server verification
+            setTimeout(() => {
+                alert('Payment verified successfully! Redirecting to order confirmation...');
+                // In real app: window.location.href = '/order-success?orderId=' + orderId;
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STITCH | Join Our Fashion Design Platform</title>
+  <style>
+    :root {
+      --primary: #d4b08c;
+      --secondary: #987654;
+      --light: #ffffff;
+      --dark: #4a3f35;
+      --accent: #c19a6b;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #fafafa;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: linear-gradient(135deg, rgba(212, 176, 140, 0.08) 10%, rgba(193, 154, 107, 0.12) 100%);
+      padding: 40px 20px;
+    }
+    
+    .container {
+      display: flex;
+      max-width: 900px;
+      min-height: 600px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .left-panel {
+      flex: 1;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .left-panel::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .left-panel::after {
+      content: "";
+      position: absolute;
+      bottom: -80px;
+      right: -80px;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .brand {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .tagline {
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .benefits {
+      list-style: none;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .benefits li {
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .benefits li::before {
+      content: "✓";
+      margin-right: 10px;
+      font-weight: bold;
+    }
+    
+    .right-panel {
+      flex: 1;
+      background-color: white;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .register-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      color: var(--dark);
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    p {
+      color: #7d6e5d;
+    }
+    
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+      flex: 1;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #e8d8c7;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(212, 176, 140, 0.2);
+    }
+    
+    .password-container {
+      position: relative;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #a99480;
+    }
+    
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .terms input {
+      margin-right: 10px;
+      margin-top: 5px;
+    }
+    
+    .terms label {
+      color: #7d6e5d;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    
+    .terms a {
+      color: var(--secondary);
+      text-decoration: none;
+    }
+    
+    .terms a:hover {
+      text-decoration: underline;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-bottom: 15px;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--secondary);
+    }
+    
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 20px 0;
+      color: #7d6e5d;
+    }
+    
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background-color: #e8d8c7;
+    }
+    
+    .divider span {
+      padding: 0 15px;
+    }
+    
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #f8f5f2;
+      border: 1px solid #e8d8c7;
+      cursor: pointer;
+      transition: all 0.3s;
+      color: var(--secondary);
+    }
+    
+    .social-btn:hover {
+      background-color: #f0e9e2;
+    }
+    
+    .login-link {
+      text-align: center;
+      color: #7d6e5d;
+    }
+    
+    .login-link a {
+      color: var(--secondary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .designer-type {
+      margin-bottom: 20px;
+    }
+    
+    .designer-type label {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    
+    .radio-group {
+      display: flex;
+      gap: 20px;
+    }
+    
+    .radio-option {
+      display: flex;
+      align-items: center;
+    }
+    
+    .radio-option input {
+      margin-right: 8px;
+    }
+
+    .preference-section h3 {
+      color: var(--dark);
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .checkbox-group, .color-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-item, .color-checkbox {
+      display: flex;
+      align-items: center;
+      margin-right: 15px;
+    }
+
+    .checkbox-item label, .color-checkbox label {
+      margin-left: 5px;
+      color: #7d6e5d;
+    }
+
+    select {
+      background-color: #fff;
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+        max-width: 90%;
+      }
+      
+      .left-panel {
+        display: none;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+    <div class="left-panel">
+      <h1 class="brand">MEDHA CLOTHINGS</h1>
+      <p class="tagline">Join our community of fashion designers and bring your creative vision to life.</p>
+      <ul class="benefits">
+        <li>Free portfolio to showcase your designs</li>
+        <li>Connect with brands and potential clients</li>
+        <li>Access to exclusive design tools and resources</li>
+        <li>Participate in virtual fashion shows</li>
+      </ul>
+    </div>
+    <div class="right-panel">
+      <div class="register-header">
+        <h2>Create Your Account</h2>
+        <p>Start your fashion design journey today</p>
+      </div>
+      <form action="/users/signup" method="post">
+        <div class="form-group">
+          <label for="userName">Username</label>
+          <input type="text" class="form-control" id="userName" name="userName" placeholder="Choose a unique username" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="mobile">Mobile number</label>
+          <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="password-container">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+            <span class="toggle-password">👁️</span>
+          </div>
+        </div>
+
+        {{!-- <div class="preference-section">
+          <h3>Your Style Preferences</h3>
+          
+          <div class="form-group">
+            <label>Body Measurements</label>
+            <div class="measurement-group">
+                <select name="size" class="form-control" id="size">
+                  <option value="S">S</option>
+                  <option value="M">M</option>
+                  <option value="XL">XL</option>
+                  <option value="XXL">XXL</option>
+                </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Dress Style Interests</label>
+            <div class="checkbox-group">
+              <div class="checkbox-item">
+                <input type="checkbox" id="style-casual" name="dressStyles" value="casual">
+                <label for="style-casual">Casual</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="style-formal" name="dressStyles" value="formal">
+                <label for="style-formal">Formal</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="style-party" name="dressStyles" value="party">
+                <label for="style-party">Party</label>
+              </div>
+              <div class="checkbox-item">
+                <input type="checkbox" id="style-work" name="dressStyles" value="work">
+                <label for="style-work">Work</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Preferred Dress Fit</label>
+            <select class="form-control" name="dressFit" id="dressFit">
+              <option value="">Select Dress Fit</option>
+              <option value="slim">Slim Fit</option>
+              <option value="regular">Regular Fit</option>
+              <option value="loose">Loose Fit</option>
+              <option value="oversized">Oversized</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Color Preferences</label>
+            <div class="color-group">
+              <div class="color-checkbox">
+                <input type="checkbox" id="color-pastel" name="colorPreferences" value="pastel">
+                <label for="color-pastel">Pastel</label>
+              </div>
+              <div class="color-checkbox">
+                <input type="checkbox" id="color-bright" name="colorPreferences" value="bright">
+                <label for="color-bright">Bright</label>
+              </div>
+              <div class="color-checkbox">
+                <input type="checkbox" id="color-neutral" name="colorPreferences" value="neutral">
+                <label for="color-neutral">Neutral</label>
+              </div>
+              <div class="color-checkbox">
+                <input type="checkbox" id="color-dark" name="colorPreferences" value="dark">
+                <label for="color-dark">Dark</label>
+              </div>
+            </div>
+          </div>
+        </div> --}}
+        
+        <div class="terms">
+          <input type="checkbox" id="terms" name="terms" required>
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand my data will be used as described.</label>
+        </div>
+        
+        <button type="submit" class="submit-btn">Create Account</button>
+        
+        <div class="divider">
+          <span>or sign up with</span>
+        </div>
+        
+        <div class="social-login">
+          <div class="social-btn">G</div>
+          <div class="social-btn">f</div>
+          <div class="social-btn">in</div>
+        </div>
+        
+        <div class="login-link">
+          Already have an account? <a href="/users/login">Log In</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

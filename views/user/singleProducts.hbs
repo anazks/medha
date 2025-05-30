@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{product.productName}} | MEDHA CLOTHINGS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #d4b08c;
+      --primary-dark: #b08c6e;
+      --secondary: #3e4c59;
+      --light: #ffffff;
+      --dark: #212529;
+      --accent: #e8c9a9;
+      --background: #fcfbf9;
+      --gray-light: #f5f5f5;
+      --gray-medium: #e0e0e0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--background);
+      color: var(--secondary);
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    
+    /* Product Wrapper */
+    .product-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 60px;
+      background-color: var(--light);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .product-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .product-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .product-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .product-info h1 {
+      font-size: 2.2rem;
+      margin-bottom: 15px;
+      color: var(--secondary);
+    }
+    
+    .product-meta {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+    
+    .availability {
+      color: #28a745;
+      font-weight: 500;
+    }
+    
+    .price {
+      font-size: 1.8rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin: 20px 0;
+    }
+    
+    .product-description {
+      color: var(--secondary);
+      line-height: 1.8;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .product-details {
+      margin-bottom: 30px;
+    }
+    
+    .detail-item {
+      display: flex;
+      margin-bottom: 10px;
+    }
+    
+    .detail-label {
+      font-weight: 600;
+      min-width: 120px;
+      color: var(--secondary);
+    }
+    
+    .detail-value {
+      color: var(--secondary);
+      opacity: 0.9;
+    }
+    
+    /* Buttons */
+    .buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .btn-icon {
+      margin-right: 8px;
+    }
+    
+    /* Related Products */
+    .related-products {
+      margin-top: 60px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2rem;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+    
+    .section-title h2::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: 3px;
+    }
+    
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    
+    .related-card {
+      background-color: var(--light);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .related-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .related-image {
+      height: 200px;
+      width: 100%;
+      object-fit: cover;
+    }
+    
+    .related-info {
+      padding: 20px;
+    }
+    
+    .related-title {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+    
+    .related-card:hover .related-title {
+      color: var(--primary);
+    }
+    
+    .related-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .related-rating {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .product-wrapper {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .buttons {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .container {
+        padding: 20px 15px;
+      }
+      
+      .product-info h1 {
+        font-size: 1.8rem;
+      }
+      
+      .price {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  {{> userHeader}}
+  
+  <div class="container" style="margin-top: 10%;">
+    <div class="product-wrapper">
+      <div class="product-image">
+        <img src="/images/product/{{product._id}}.jpg" alt="{{product.productName}}" />
+      </div>
+      <div class="product-info">
+        <h1>{{product.productName}}</h1>
+        
+        <div class="product-meta">
+          <div class="rating">
+            <i class="fas fa-star"></i>
+            <span>4.8 (24 reviews)</span>
+          </div>
+          <span class="availability">In Stock</span>
+        </div>
+        
+        <div class="price">₹{{product.mrp}}</div>
+        
+        <p class="product-description">{{product.description}}</p>
+        
+        <div class="product-details">
+          <div class="detail-item">
+            <span class="detail-label">Category:</span>
+            <span class="detail-value">{{product.category}}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Material:</span>
+            <span class="detail-value">Premium Cotton</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Color:</span>
+            <span class="detail-value">Navy Blue</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Sourced From:</span>
+            <span class="detail-value">{{product.place}}</span>
+          </div>
+        </div>
+        
+        <div class="buttons">
+          <a href="/users/addtoCart/{{product._id}}" class="btn btn-outline">
+            <i class="fas fa-shopping-cart btn-icon"></i> Add to Cart
+          </a>
+          <a href="/users/buynow/{{product._id}}/1" class="btn btn-primary">
+            <i class="fas fa-bolt btn-icon"></i> Buy Now
+          </a>
+        </div>
+      </div>
+    </div>
+
+  
+  </div>
+
+  <script>
+    // Sticky navbar on scroll
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (navbar && window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else if (navbar) {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Generate random review count for demo purposes
+    
+    
+    // Apply random review counts
+
+  </script>
+</body>
+</html>

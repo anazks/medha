@@ -1,0 +1,112 @@
+<body style="background: #b3ccaf;">
+    <div class="NavSeller">
+        <h5 style="color:white;padding:5px;font-family: 'Glegoo', serif;">
+            <span style="color:#1e2832;">Virtual Fashion </span> UserName
+        </h5>
+    </div>
+    <div class="container" style="width: 500px;margin:50px auto; background: #fff;padding:25px">
+        <h1 style="text-align: center;color:#1e2832;font-family: 'Glegoo', serif;margin-bottom:20px">
+            Add New Product
+        </h1>
+        <form action="/seller/addProduct" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="productName" class="form-label" style="color: #1e2832;">Name of the Product</label>
+                <input type="text" name="productName" class="form-control" id="productName" required>
+            </div>
+            <div class="mb-3">
+                <label for="mrp" class="form-label" style="color: #1e2832;">MRP (in INR)</label>
+                <input name="mrp" type="number" class="form-control" id="mrp" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label" style="color: #1e2832;">Selling Price (in INR)</label>
+                <input name="price" type="number" class="form-control" id="price" required>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label" style="color: #1e2832;">Description</label>
+                <textarea name="description" id="description" cols="10" rows="5" class="form-control"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label" style="color: #1e2832;">Select Category</label>
+                <select name="category" id="category" class="form-control">
+                    <option value="">Select Category</option>
+                    <option value="dress">Dress</option>
+                    <option value="Ornaments">Ornaments</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="ladies">Ladies</option>
+                    <option value="mens">Mens</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="relatedTo" class="form-label" style="color: #1e2832;">Related To</label>
+                <input type="text" name="relatedTo" class="form-control" id="relatedTo" placeholder="ex: shirts pants saree">
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label" style="color: #1e2832;">Dress Styles</label>
+                <div class="checkbox-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dressStyles" value="casual" id="styleCasual">
+                        <label class="form-check-label" for="styleCasual">Casual</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dressStyles" value="formal" id="styleFormal">
+                        <label class="form-check-label" for="styleFormal">Formal</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dressStyles" value="party" id="styleParty">
+                        <label class="form-check-label" for="styleParty">Party</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="dressStyles" value="work" id="styleWork">
+                        <label class="form-check-label" for="styleWork">Work</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="dressFit" class="form-label" style="color: #1e2832;">Dress Fit</label>
+                <select name="dressFit" id="dressFit" class="form-control">
+                    <option value="">Select Dress Fit</option>
+                    <option value="slim">Slim Fit</option>
+                    <option value="regular">Regular Fit</option>
+                    <option value="loose">Loose Fit</option>
+                    <option value="oversized">Oversized</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" style="color: #1e2832;">Color Preferences</label>
+                <div class="checkbox-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="colorPreferences" value="pastel" id="colorPastel">
+                        <label class="form-check-label" for="colorPastel">Pastel</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="colorPreferences" value="bright" id="colorBright">
+                        <label class="form-check-label" for="colorBright">Bright</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="colorPreferences" value="neutral" id="colorNeutral">
+                        <label class="form-check-label" for="colorNeutral">Neutral</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="colorPreferences" value="dark" id="colorDark">
+                        <label class="form-check-label" for="colorDark">Dark</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="size" class="form-label" style="color: #1e2832;">Size</label>
+                <input type="text" name="size" class="form-control" id="size" placeholder="38">
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label" style="color: #1e2832;">Upload Product Image</label>
+                <input name="image" type="file" accept="image/*" class="form-control" id="image">
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+            <a href="/seller/" class="text-secondary" style="text-decoration: none;">Back to home</a>
+            <br><br>
+        </form>
+    </div>
+</body>

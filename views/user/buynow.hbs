@@ -1,0 +1,220 @@
+<style>
+  /* Global Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #45a049;
+    --text-dark: #333;
+    --text-muted: #6c757d;
+    --background-light: #f8f9fa;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px;
+    padding: 20px;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.card:hover {
+    box-shadow: 0 15px 25px rgba(0,0,0,0.12);
+    transform: translateY(-5px);
+}
+
+/* Image Styles */
+.product-image-container {
+    position: relative;
+    padding: 15px;
+    background: var(--background-light);
+}
+
+.product-image-container img {
+    border-radius: var(--border-radius);
+    object-fit: cover;
+    max-height: 300px;
+    width: 100%;
+    transition: transform 0.3s ease;
+}
+
+.product-image-container:hover img {
+    transform: scale(1.05);
+}
+
+.product-image-container .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
+    border-radius: var(--border-radius);
+}
+
+/* Card Body Styles */
+.card-body {
+    padding: 25px;
+}
+
+.card-title {
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+}
+
+.card-text {
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* Badge Styles */
+.badge {
+    font-size: 0.8rem;
+    padding: 0.5em 0.75em;
+    border-radius: 10px;
+}
+
+/* Quantity and Price Section */
+.quantity-info,
+.price-section {
+    display: flex;
+    align-items: center;
+}
+
+.price-section .text-primary {
+    font-size: 1.5rem;
+    color: var(--primary-color) !important;
+}
+
+.price-section .text-muted {
+    text-decoration: line-through;
+    margin-left: 10px;
+    font-size: 0.9rem;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 12px 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary-color) !important;
+    transform: translateY(-2px);
+    box-shadow: var(--box-shadow) !important;
+}
+
+/* Card Footer Styles */
+.card-footer {
+    background-color: var(--background-light);
+    border-top: 1px solid rgba(0,0,0,0.07);
+    padding: 15px 25px;
+}
+
+.card-footer h5 {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.card-footer h3 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card {
+        flex-direction: column;
+    }
+    
+    .product-image-container {
+        max-height: 300px;
+    }
+}
+
+/* Additional Hover and Interaction Styles */
+.btn,
+.product-image-container img {
+    transition: all 0.3s ease;
+}
+
+/* Accessibility Enhancements */
+*:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+</style>
+<div class="container">
+    <div class="card shadow-lg mb-4" style="max-width:90%; margin-top: 50px; border-radius: 15px; overflow: hidden;">
+        <div class="row g-0">
+            {{#each product}}
+            <div class="col-md-4 position-relative" style="margin-top: 10px;">
+                <div class="product-image-container" style="position: relative; padding: 15px;">
+                    <img src="/images/product/{{this.Image}}" 
+                         class="img-fluid rounded-3 shadow-sm" 
+                         alt="{{this.Product_name}}"
+                         style="object-fit: cover; max-height: 300px; width: 100%; transition: transform 0.3s ease;">
+                    <div class="overlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+                         background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)); 
+                         border-radius: 12px;"></div>
+                </div>
+            </div>
+            <div class="col-md-8" style="margin-top: 10px;">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <h4 class="card-title fw-bold text-dark">{{this.Product_name}}</h4>
+                        <span class="badge bg-success p-2">In Stock</span>
+                    </div>
+                    <p class="card-text text-muted mb-3">{{this.Description}}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="quantity-info">
+                            <span class="text-muted me-2">Quantity:</span>
+                            <span class="fw-bold">{{this.qnty}}</span>
+                        </div>
+                        <div class="price-section">
+                            <span class="text-primary fw-bold h5 me-2">$99.99</span>
+                            <span class="text-muted text-decoration-line-through">$129.99</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="/users/buynow/payment{{this.Id}}" 
+                           class="btn btn-primary btn-lg w-100 shadow-sm" 
+                           style="background-color: #4CAF50; border: none;">
+                            <i class="fas fa-shopping-cart me-2"></i>Buy
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="card-footer bg-light py-3">
+            <div class="d-flex justify-content-between align-items-center px-4">
+                <h5 class="mb-0">Total Amount</h5>
+                <h3 class="text-primary mb-0 fw-bold">{{total_amount}}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.product-image-container img:hover {
+    transform: scale(1.05);
+}
+.btn:hover {
+    background-color: #45a049 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+}
+</style>

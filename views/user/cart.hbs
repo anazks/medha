@@ -1,0 +1,825 @@
+# Enhanced Shopping Cart Design
+
+Here's an improved version of your shopping cart with a more modern, elegant design:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart | Elegance</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary-black: #111112;
+      --secondary-black: #1e1e20;
+      --tertiary-black: #2a2a2d;
+      --pure-white: #ffffff;
+      --off-white: #f9f9f9;
+      --light-gray: #f0f0f0;
+      --medium-gray: #a0a0a0;
+      --dark-gray: #555555;
+      --border-color: #ebebeb;
+      --accent-color: #3a86ff;
+      --accent-hover: #2667cc;
+      --success-color: #4bb543;
+      --shadow-light: 0 2px 12px rgba(0, 0, 0, 0.06);
+      --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.1);
+      --shadow-heavy: 0 8px 32px rgba(0, 0, 0, 0.12);
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --border-radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--off-white);
+      color: var(--primary-black);
+      line-height: 1.6;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px;
+    }
+
+    /* Header */
+    .page-header {
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .page-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      position: relative;
+      display: inline-block;
+    }
+
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .cart-count {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--dark-gray);
+      margin-left: 12px;
+    }
+
+    /* Cart Section */
+    .cart-section {
+      margin-bottom: 80px;
+    }
+
+    .cart-container {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    /* Cart Items */
+    .cart-items-container {
+      background: var(--pure-white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-light);
+    }
+
+    .cart-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding: 24px;
+    }
+
+    .cart-item {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      position: relative;
+      transition: var(--transition);
+      overflow: hidden;
+    }
+
+    .cart-item:hover {
+      border-color: var(--accent-color);
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-2px);
+    }
+
+    .item-badge {
+      position: absolute;
+      top: 12px;
+      right: -28px;
+      background: var(--accent-color);
+      color: var(--pure-white);
+      padding: 4px 32px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transform: rotate(45deg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .item-image {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--off-white);
+      border: 1px solid var(--border-color);
+      position: relative;
+    }
+
+    .item-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .item-image:hover img {
+      transform: scale(1.05);
+    }
+
+    .item-details {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .item-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-black);
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .item-price {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      white-space: nowrap;
+    }
+
+    .item-category {
+      color: var(--dark-gray);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .item-category i {
+      color: var(--medium-gray);
+      font-size: 0.9rem;
+    }
+
+    .item-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .item-quantity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+
+    .quantity-btn {
+      background: var(--pure-white);
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--dark-gray);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .quantity-btn:hover {
+      background: var(--accent-color);
+      color: var(--pure-white);
+    }
+
+    .quantity-input {
+      border: none;
+      text-align: center;
+      width: 36px;
+      padding: 8px;
+      font-weight: 600;
+      background: transparent;
+      color: var(--primary-black);
+      font-size: 0.9rem;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .action-btns {
+      padding: 10px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: var(--pure-white);
+      border-color: var(--accent-color);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-light);
+    }
+
+    .btn-outline {
+      background: var(--pure-white);
+      color: var(--dark-gray);
+      border-color: var(--border-color);
+    }
+
+    .btn-outline:hover {
+      background: var(--light-gray);
+      color: var(--primary-black);
+    }
+
+    /* Cart Summary */
+    .cart-summary-container {
+      position: sticky;
+      top: 40px;
+    }
+
+    .cart-summary {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 28px;
+      box-shadow: var(--shadow-light);
+    }
+
+    .summary-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-title i {
+      color: var(--accent-color);
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    .price-label {
+      color: var(--dark-gray);
+    }
+
+    .price-value {
+      font-weight: 500;
+    }
+
+    .price-mrp .price-value {
+      color: var(--medium-gray);
+      text-decoration: line-through;
+    }
+
+    .price-saved .price-value {
+      color: var(--success-color);
+      font-weight: 600;
+    }
+
+    .price-total {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      border-top: 2px solid var(--border-color);
+      margin-top: 16px;
+      padding-top: 16px;
+    }
+
+    .checkout-btns {
+      width: 100%;
+      padding: 14px;
+      margin-top: 20px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.5px;
+      border-radius: 8px;
+    }
+
+    .payment-methods {
+      display: flex;
+      gap: 8px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .payment-method {
+      width: 40px;
+      height: 24px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: var(--dark-gray);
+    }
+
+    /* Empty Cart */
+    .cart-empty {
+      text-align: center;
+      padding: 80px 40px;
+      background: var(--pure-white);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-light);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .cart-empty-icon {
+      font-size: 3.5rem;
+      color: var(--medium-gray);
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .cart-empty-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      margin-bottom: 12px;
+    }
+
+    .cart-empty p {
+      font-size: 1rem;
+      color: var(--dark-gray);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* Recommendations */
+    .recommendations {
+      margin-top: 80px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary-black);
+      margin-bottom: 8px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--dark-gray);
+      font-weight: 500;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--pure-white);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .product-card:hover {
+      border-color: var(--accent-color);
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-4px);
+    }
+
+    .product-image {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: var(--off-white);
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .product-card:hover .product-image img {
+      transform: scale(1.03);
+    }
+
+    .product-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent-color);
+      color: var(--pure-white);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      z-index: 1;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-black);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .product-description {
+      color: var(--dark-gray);
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .product-pricing {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .price-original {
+      font-size: 0.8rem;
+      color: var(--medium-gray);
+      text-decoration: line-through;
+      font-weight: 500;
+    }
+
+    .price-current {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-black);
+    }
+
+    .product-btn {
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .cart-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      
+      .cart-summary-container {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 32px 16px;
+      }
+      
+      .page-title {
+        font-size: 1.8rem;
+      }
+      
+      .cart-item {
+        grid-template-columns: 80px 1fr;
+        gap: 16px;
+      }
+      
+      .item-image {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      
+      .item-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      
+      .item-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+      }
+      
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cart-items {
+        padding: 16px;
+      }
+      
+      .cart-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      
+      .item-header, .item-meta {
+        align-items: center;
+        text-align: center;
+      }
+      
+      .item-actions {
+        flex-direction: column;
+        gap: 8px;
+      }
+      
+      .action-btns {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .cart-empty {
+        padding: 60px 24px;
+      }
+      
+      .cart-empty-text {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+{{>userHeader}}
+
+  <!-- Cart Page Content -->
+  <div class="container">
+    <header class="page-header">
+      <h1 class="page-title">Your Shopping Cart <span class="cart-count">{{#if products}}({{products.length}} items){{/if}}</span></h1>
+      <a href="/" class="btn btn-outline">
+        <i class="fas fa-arrow-left"></i> Continue Shopping
+      </a>
+    </header>
+    
+    <main class="cart-section">
+      {{#if products}}
+      <div class="cart-container">
+        <div class="cart-items-container">
+          <div class="cart-items">
+            {{#each products}}
+            <div class="cart-item">
+              {{#if item.isPopular}}
+              <div class="item-badge">
+                <i class="fas fa-bolt"></i> Popular
+              </div>
+              {{/if}}
+              <div class="item-image">
+                <img src="/images/product/{{item._id}}.jpg" alt="{{item.productName}}">
+              </div>
+              <div class="item-details">
+                <div class="item-header">
+                  <h3 class="item-name">{{item.productName}}</h3>
+                  <div class="item-price">₹{{item.price}}</div>
+                </div>
+                <p class="item-category">
+                  <i class="fas fa-tag"></i> {{item.relatedTo}}
+                </p>
+                
+                <div class="item-meta">
+                  <div class="item-quantity">
+                    <span>Qty:</span>
+                    <div class="quantity-control">
+                      <button class="quantity-btn" onclick="updateQuantity('{{item._id}}', 'decrease')">
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <input type="text" class="quantity-input" value="{{quantity}}" readonly>
+                      <button class="quantity-btn" onclick="updateQuantity('{{item._id}}', 'increase')">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="item-actions">
+                    <a href="/users/remove-product/{{item._id}}" class="action-btns btn-primary">
+                      <i class="fas fa-bolt"></i> Remove
+                    </a>
+                    {{!-- <a href="/users/remove-product/{{item._id}}" class="action-btns btn-outline">
+                      <i class="fas fa-trash-alt"></i> Remove
+                    </a> --}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        
+        <div class="cart-summary-container">
+          <div class="cart-summary">
+            <h3 class="summary-title">
+              <i class="fas fa-receipt"></i> Order Summary
+            </h3>
+            
+            <div class="price-row">
+              <span class="price-label">Subtotal ({{products.length}} items)</span>
+              <span class="price-value">₹{{total}}</span>
+            </div>
+            <div class="price-row price-mrp">
+              <span class="price-label">Total MRP</span>
+              <span class="price-value">₹{{totalMRP}}</span>
+            </div>
+            <div class="price-row">
+              <span class="price-label">Delivery</span>
+              <span class="price-value">FREE</span>
+            </div>
+            <div class="price-row price-saved">
+              <span class="price-label">Total Savings</span>
+              <span class="price-value">₹{{saved}}</span>
+            </div>
+            
+            <div class="price-row price-total">
+              <span class="price-label">Total Amount</span>
+              <span class="price-value">₹{{total}}</span>
+            </div>
+            
+            <a href="/users/checkout" class="action-btns btn-primary">
+              <i class="fas fa-lock"></i> Proceed to Checkout
+            </a>
+            
+            <div class="payment-methods">
+              <div class="payment-method">Visa</div>
+              <div class="payment-method">MC</div>
+              <div class="payment-method">Amex</div>
+              <div class="payment-method">PayPal</div>
+              <div class="payment-method">UPI</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {{else}}
+      <!-- Empty Cart Message -->
+      <div class="cart-empty">
+        <div class="cart-empty-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h3 class="cart-empty-text">Your cart is empty</h3>
+        <p>Looks like you haven't added anything to your cart yet</p>
+        <a href="/" class="action-btnss btn-primary">
+          <i class="fas fa-arrow-left"></i> Continue Shopping
+        </a>
+      </div>
+      {{/if}}
+    </main>
+    
+    
+  </div>
+  
+  <!-- Footer -->
+
+<script>
+function updateQuantity(itemId, action) {
+  // Add your quantity update logic here
+  console.log(`Updating quantity for item ${itemId}: ${action}`);
+}
+</script>
+
+</body>
+</html>

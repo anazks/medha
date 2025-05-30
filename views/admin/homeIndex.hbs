@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elegance - Premium Kurtis & Sarees</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #6b8e23;  /* Olive Green */
+            --secondary-color: #f5f5f5; /* Light Gray */
+            --accent-color: #b8860b;   /* Dark Goldenrod */
+            --text-color: #333333;     /* Dark Gray */
+            --light-text: #666666;     /* Medium Gray */
+            --white: #ffffff;          /* White */
+            --dark-bg: #2f4f4f;       /* Dark Slate Gray */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Josefin Sans', sans-serif;
+            color: var(--text-color);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--dark-bg);
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+            font-style: italic;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .header-icons {
+            display: flex;
+            align-items: center;
+        }
+        
+        .header-icons a {
+            margin-left: 20px;
+            font-size: 1.1rem;
+            color: var(--dark-bg);
+            transition: color 0.3s;
+        }
+        
+        .header-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 600px;
+            background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--dark-bg);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+        
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 80px 0;
+            background-color: var(--secondary-color);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h3 {
+            font-size: 2.2rem;
+            color: var(--dark-bg);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .section-title p {
+            color: var(--light-text);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .category-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(transparent, rgba(47, 79, 79, 0.8));
+            color: var(--white);
+        }
+        
+        .category-content h4 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .category-content a {
+            color: var(--white);
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .category-content a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* New Arrivals */
+        .new-arrivals {
+            padding: 80px 0;
+            background-color: var(--white);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-overlay {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            background: rgba(107, 142, 35, 0.9);
+            display: flex;
+            justify-content: center;
+            padding: 12px 0;
+            transition: bottom 0.3s;
+        }
+        
+        .product-card:hover .product-overlay {
+            bottom: 0;
+        }
+        
+        .product-overlay a {
+            margin: 0 15px;
+            color: var(--white);
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        .product-overlay a:hover {
+            color: var(--accent-color);
+        }
+        
+        .product-info {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .product-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+        
+        .product-card:hover .product-info h4 {
+            color: var(--primary-color);
+        }
+        
+        .product-info .price {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background-color: var(--secondary-color);
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: var(--light-text);
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            font-family: serif;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .author-info h5 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--dark-bg);
+        }
+        
+        .author-info span {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 0;
+            text-align: center;
+            background-color: var(--dark-bg);
+            color: var(--white);
+        }
+        
+        .newsletter-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .newsletter h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+        
+        .newsletter p {
+            margin-bottom: 30px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            border-radius: 4px 0 0 4px;
+        }
+        
+        .newsletter-form button {
+            padding: 0 25px;
+            background-color: var(--accent-color);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 0 4px 4px 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--white);
+            padding: 60px 0 20px;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-col h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-col ul li a {
+            color: var(--white);
+            opacity: 0.8;
+            transition: all 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+        
+        .footer-col p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 15px;
+        }
+        
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            margin-right: 10px;
+            transition: all 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero {
+                height: 500px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h3 {
+                font-size: 1.8rem;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .newsletter-form input {
+                border-radius: 4px;
+                margin-bottom: 10px;
+            }
+            
+            .newsletter-form button {
+                border-radius: 4px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+  {{>userHeader}}
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h2>Elegance in Every Thread</h2>
+            <p>Discover our exclusive collection of designer sarees and kurtis, crafted with love and tradition for the modern woman.</p>
+            <a href="/users/login" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="container">
+            <div class="section-title">
+                <h3>Shop By Category</h3>
+                <p>Browse our curated collections of premium ethnic wear</p>
+            </div>
+            <div class="category-grid">
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Designer Sarees">
+                    <div class="category-content">
+                        <h4>Designer Sarees</h4>
+                        <a href="#">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1595341595379-cf0f2a7c0459?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Printed Kurtis">
+                    <div class="category-content">
+                        <h4>Designer Kurtis</h4>
+                        <a href="#">View Collection</a>
+                    </div>
+                </div>
+                <div class="category-card">
+                    <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Festive Collection">
+                    <div class="category-content">
+                        <h4>Festive Collection</h4>
+                        <a href="#">View Collection</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="new-arrivals">
+        <div class="container">
+            <div class="section-title">
+                <h3>New Arrivals</h3>
+                <p>Fresh designs added to our collection</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595341595379-cf0f2a7c0459?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Silk Saree">
+                        <div class="product-overlay">
+                            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                            <a href="#"><i class="fas fa-heart"></i></a>
+                            <a href="#"><i class="fas fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Banarasi Silk Saree</h4>
+                        <p class="price">₹4,999</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595341595379-cf0f2a7c0459?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Designer Kurti">
+                        <div class="product-overlay">
+                            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                            <a href="#"><i class="fas fa-heart"></i></a>
+                            <a href="#"><i class="fas fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Embroidered Anarkali Kurti</h4>
+                        <p class="price">₹2,499</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595341595379-cf0f2a7c0459?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Cotton Saree">
+                        <div class="product-overlay">
+                            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                            <a href="#"><i class="fas fa-heart"></i></a>
+                            <a href="#"><i class="fas fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Handloom Cotton Saree</h4>
+                        <p class="price">₹3,299</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-img">
+                        <img src="https://images.unsplash.com/photo-1595341595379-cf0f2a7c0459?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Casual Kurti">
+                        <div class="product-overlay">
+                            <a href="#"><i class="fas fa-shopping-cart"></i></a>
+                            <a href="#"><i class="fas fa-heart"></i></a>
+                            <a href="#"><i class="fas fa-eye"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h4>Printed Straight Kurti</h4>
+                        <p class="price">₹1,899</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h3>Customer Love</h3>
+                <p>What our customers say about us</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The quality of sarees from Elegance is outstanding. The fabric is beautiful and the craftsmanship is excellent. I've received so many compliments!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Customer">
+                        <div class="author-info">
+                            <h5>Priya Sharma</h5>
+                            <span>Delhi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"I absolutely love the kurtis from Elegance. The fit is perfect and the designs are unique. Their customer service is also excellent!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1519699047748-de8e457a634e?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Customer">
+                        <div class="author-info">
+                            <h5>Ritu Patel</h5>
+                            <span>Mumbai</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Elegance has become my go-to store for all festive occasions. Their collection is timeless and elegant. Highly recommended!"</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Customer">
+                        <div class="author-info">
+                            <h5>Anjali Gupta</h5>
+                            <span>Bangalore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container newsletter-content">
+            <h3>Subscribe to Our Newsletter</h3>
+            <p>Be the first to know about new arrivals, exclusive offers and style tips.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your email address">
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h4>About Elegance</h4>
+                    <p>At Elegance, we celebrate the heritage of Indian ethnic wear with modern designs. Our carefully curated collections honor traditional craftsmanship while embracing contemporary styles.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="#">Sarees</a></li>
+                        <li><a href="#">Kurtis</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Information</h4>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li>123 Fashion Street, Mumbai, India</li>
+                        <li>Email: info@elegance.com</li>
+                        <li>Phone: +91 9876543210</li>
+                        <li>Hours: Mon-Sat 10AM - 8PM</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Elegance. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
