@@ -27,10 +27,6 @@ const ProductSchema = new mongoose.Schema({
     sellerName: {
         type: String,
         required: true
-    },
-    relatedTo: {
-        type: String,
-        required: true
     }, 
     category: {
         type: String,
@@ -40,27 +36,7 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         default: "approved"
     },
-    // New fields added
-    dressStyles: {
-        type: [String],
-        enum: ['casual', 'formal', 'party', 'work'],
-        default: []
-    },
-    dressFit: {
-        type: String,
-        enum: ['slim', 'regular', 'loose', 'oversized'],
-        default: null
-    },
-    colorPreferences: {
-        type: [String],
-        enum: ['pastel', 'bright', 'neutral', 'dark'],
-        default: []
-    },
-    // Optional image field
-    image: {
-        type: String,
-        default: null
-    }
+   
 });
 
 module.exports = mongoose.model("product", ProductSchema);

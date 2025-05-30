@@ -13,7 +13,7 @@ const getMainHomePage = async (req, res) => {
     try {
         let news = await newsModel.find({});
         let user = req.session.user;
-        let product = await ProductModel.find({ category:"Shoes" });
+        let product = await ProductModel.find();
         console.log(products,user,"---------------")
         res.render('user/home', {product,user });
     } catch (error) {

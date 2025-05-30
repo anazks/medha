@@ -9,11 +9,11 @@ const Razorpay = require('../Payments/Payment')
 const addressModel = require('../models/address-model')
 const getUserHomePage = async function (req, res, next) {
     try {
-        let products = await ProductModel.find({ category:"Shoes" });
+        let products = await ProductModel.find();
         let TShirts = await ProductModel.find({ category:"dress", status: "approved" });
         let Shirts = await ProductModel.find({ category:"mens", status: "approved" });
         let Ladies = await ProductModel.find({ category:"ladies", status: "approved" });
-        console.log(Shirts,"------------")
+            console.log(Shirts,"------------")
 
         let Ornaments = await ProductModel.find({ category:"Ornaments", status: "approved" });
         let medBlogs = await medBlogModel.find({ status: "approved" }).sort({ date: 1 }).limit(4)
