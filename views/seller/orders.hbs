@@ -1,44 +1,291 @@
 {{> sellerNav}}
 
-
-<div class="container">
-  <h1 class="text-secondary text-center mt-3 p-3">{{title}}</h1>
-  <div class="card mb-3" style="max-width:100%;border:none">
-    <div class="row g-0" style="border: none;">
-      {{#if completed}}
-      {{#each orders}}
-      <div class="col-md-4 cart mb-3" style="margin-top: 10px;border:none">
-        <img style="height:100%;" src="/images/product/{{productId}}.jpg" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8 cart mb-3" style="margin-top: 10px;border:none">
-        <div class="card-body">
-          <h5 class="card-title">{{productName}}</h5>
-          <p class="card-text">Quantity : {{quantity}}</p>
-          <h6><b>Status</b>:{{this.status}}</h6>
-          <h6><b>User Name </b>:{{buyerName}}</h6>
-          <h6><b>User Email </b>:{{buyerEmail}}</h6>
-          <h6><b>Amount</b>:{{totalPrice}}.Rs. <b>Paid</b></h6>
-          <a href="/seller/shipped/{{_id}}" class="btn btn-success"> Ship the Order</a>
+<div class="container-fluid px-4">
+  <div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
+      <div class="d-flex align-items-center justify-content-between mb-4 mt-4">
+        <h1 class="fw-bold text-dark mb-0">{{title}}</h1>
+        <div class="badge bg-primary fs-6 px-3 py-2">
+          {{#if orders.length}}{{orders.length}} Orders{{else}}No Orders{{/if}}
         </div>
       </div>
-      {{/each}}
+      
+      {{#if orders.length}}
+        <div class="row g-4">
+          {{#each orders}}
+            <div class="col-12">
+              <div class="card border-0 shadow-sm hover-shadow-lg transition-all">
+                <div class="card-header bg-gradient-primary text-white border-0 rounded-top">
+                  <div class="row align-items-center">
+                    <div class="col-md-8">
+                      <h5 class="mb-1 fw-semibold">
+                        <i class="fas fa-receipt me-2"></i>Order #{{this._id}}
+                      </h5>
+                      <div class="d-flex flex-wrap gap-3 mt-2">
+                        <span class="badge bg-light text-dark px-3 py-2">
+                          <i class="fas fa-info-circle me-1"></i>
+                          Status: <span class="text-capitalize fw-semibold">{{this.status}}</span>
+                        </span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                          <i class="fas fa-user me-1"></i>
+                          User: {{this.userId}}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                      <button 
+                        class="btn btn-light btn-sm fetch-address shadow-sm" 
+                        data-userid="{{this.userId}}"
+                        data-target="address-{{@index}}"
+                      >
+                        <i class="fas fa-map-marker-alt me-2"></i>Get Delivery Address
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div id="address-{{@index}}" class="mt-3 address-container" style="display: none;">
+                    <div class="card bg-white text-dark border-0 shadow-sm">
+                      <div class="card-body py-3">
+                        <div class="d-flex align-items-center">
+                          <div class="spinner-border spinner-border-sm text-primary me-3" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          <div class="address-content flex-grow-1"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-center mb-4">
+                    <i class="fas fa-box text-primary me-2"></i>
+                    <h6 class="mb-0 text-dark fw-semibold">Order Items</h6>
+                  </div>
+                  
+                  {{#each this.products}}
+                    <div class="product-item mb-4 p-3 rounded-3 bg-light border">
+                      <div class="row align-items-center">
+                        <div class="col-md-3 col-lg-2 text-center mb-3 mb-md-0">
+                          <div class="position-relative">
+                            <img src="/images/product/{{this.productId}}.jpg" 
+                                 class="img-fluid rounded-3 shadow-sm product-image" 
+                                 alt="{{this.item.productName}}"
+                                 style="max-height: 120px; object-fit: cover;">
+                            <div class="position-absolute top-0 end-0 bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" 
+                                 style="width: 24px; height: 24px; font-size: 12px; margin: -8px;">
+                              {{this.quantity}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-9 col-lg-10">
+                          <div class="row">
+                            <div class="col-lg-8">
+                              <h6 class="text-success fw-semibold mb-2">{{this.item.productName}}</h6>
+                              <div class="d-flex flex-wrap gap-3 text-muted small">
+                                <span>
+                                  <i class="fas fa-cubes me-1"></i>
+                                  Quantity: <strong>{{this.quantity}}</strong>
+                                </span>
+                                <span>
+                                  <i class="fas fa-tag me-1"></i>
+                                  Status: <span class="text-danger fw-semibold">{{this.status}}</span>
+                                </span>
+                              </div>
+                            </div>
+                            <div class="col-lg-4 text-lg-end mt-2 mt-lg-0">
+                              <div class="price-tag bg-success text-white px-3 py-2 rounded-pill d-inline-block">
+                                <i class="fas fa-rupee-sign me-1"></i>
+                                <span class="fw-bold">{{this.item.price}}</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {{/each}}
+                  
+                  <div class="mt-4 pt-3 border-top">
+                    {{#if ../completed}}
+                      <div class="text-center">
+                        <a href="/seller/shipped/{{this._id}}" 
+                           class="btn btn-success btn-lg px-5 py-3 shadow-sm">
+                          <i class="fas fa-shipping-fast me-2"></i>
+                          Ship This Order
+                        </a>
+                      </div>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          {{/each}}
+        </div>
       {{else}}
-      {{#each orders}}
-      <div class="col-md-4 cart mb-3" style="margin-top: 10px;border:none">
-        <img style="height:100%;" src="/images/product/{{productId}}.jpg" class="img-fluid rounded-start" alt="...">
-      </div>
-      <div class="col-md-8 cart mb-3" style="margin-top: 10px;border:none">
-        <div class="card-body">
-          <h5 class="card-title">{{productName}}</h5>
-          <p class="card-text">Quantity : {{quantity}}</p>
-          <h6><b>Status</b>:{{this.status}}</h6>
-          <h6><b>User Name </b>:{{buyerName}}</h6>
-          <h6><b>User Email </b>:{{buyerEmail}}</h6>
-          <h6><b>Amount</b>:{{totalPrice}}.Rs. <b>Paid</b></h6>
+        <div class="text-center py-5">
+          <div class="empty-state">
+            <i class="fas fa-inbox text-muted mb-3" style="font-size: 4rem;"></i>
+            <h4 class="text-muted mb-2">No Orders Found</h4>
+            <p class="text-muted">You don't have any orders at the moment. Orders will appear here when customers place them.</p>
+          </div>
         </div>
-      </div>
-      {{/each}}
       {{/if}}
     </div>
   </div>
 </div>
+
+<style>
+.bg-gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.hover-shadow-lg:hover {
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+  transform: translateY(-2px);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
+}
+
+.product-image {
+  transition: transform 0.3s ease;
+}
+
+.product-image:hover {
+  transform: scale(1.05);
+}
+
+.price-tag {
+  font-size: 1.1rem;
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+.empty-state {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.card {
+  transition: all 0.3s ease;
+  border-radius: 16px !important;
+}
+
+.badge {
+  border-radius: 12px;
+}
+
+.product-item {
+  transition: all 0.3s ease;
+}
+
+.product-item:hover {
+  background-color: #f8f9fa !important;
+  transform: translateX(4px);
+}
+
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  
+  .card-header .row {
+    text-align: center;
+  }
+  
+  .price-tag {
+    font-size: 1rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const fetchAddressButtons = document.querySelectorAll('.fetch-address');
+  
+  fetchAddressButtons.forEach(button => {
+    button.addEventListener('click', async function() {
+      const userId = this.getAttribute('data-userid');
+      const targetId = this.getAttribute('data-target');
+      const addressContainer = document.getElementById(targetId);
+      const addressContent = addressContainer.querySelector('.address-content');
+      const spinner = addressContainer.querySelector('.spinner-border');
+      
+      // Show loading spinner
+      addressContainer.style.display = 'block';
+      addressContent.innerHTML = '';
+      spinner.style.display = 'inline-block';
+      
+      try {
+        // Fetch user address from API
+        const response = await fetch(`/seller/getAddress/${userId}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch address');
+        }
+        
+        const data = await response.json();
+        
+        if (Array.isArray(data) && data.length > 0) {
+          // Format and display the first address (you can modify this if you want to show all)
+          const address = data[0];
+          const formattedAddress = `
+            <div class="address-details">
+              <div class="d-flex align-items-start">
+                <i class="fas fa-map-marker-alt text-primary me-3 mt-1"></i>
+                <div>
+                  <h6 class="mb-2 text-dark fw-semibold">${address.name}</h6>
+                  <p class="mb-1 text-muted">${address.addressLine1}</p>
+                  ${address.addressLine2 ? `<p class="mb-1 text-muted">${address.addressLine2}</p>` : ''}
+                  <p class="mb-1 text-muted">${address.city}, ${address.state}</p>
+                  <div class="d-flex flex-wrap gap-3 mt-2">
+                    <span class="badge bg-light text-dark">
+                      <i class="fas fa-map-pin me-1"></i>
+                      ${address.pincode}
+                    </span>
+                    <span class="badge bg-light text-dark">
+                      <i class="fas fa-phone me-1"></i>
+                      ${address.mobile}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          addressContent.innerHTML = formattedAddress;
+        } else {
+          addressContent.innerHTML = `
+            <div class="text-center text-muted">
+              <i class="fas fa-map-marker-alt-slash me-2"></i>
+              No address found for this user
+            </div>
+          `;
+        }
+      } catch (error) {
+        console.error('Error fetching address:', error);
+        addressContent.innerHTML = `
+          <div class="text-center text-danger">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Error loading address
+          </div>
+        `;
+      } finally {
+        spinner.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

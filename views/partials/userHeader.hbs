@@ -120,18 +120,89 @@
   .sidebar-icon-link:hover {
     color: var(--black);
   }
-  
+
+  /* Profile Dropdown Styles */
+  .profile-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .profile-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    color: var(--gray-700);
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--white);
+    min-width: 200px;
+    box-shadow: var(--shadow-md);
+    border-radius: var(--border-radius);
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .dropdown-content a {
+    color: var(--gray-700);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: var(--transition);
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .dropdown-content a:hover {
+    background-color: var(--gray-100);
+    color: var(--black);
+  }
+
+  .dropdown-content a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+  }
+
+  .logout-btn {
+    color: #dc3545 !important;
+  }
+
+  .profile-dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  /* Logout Button Styles */
+  .logout-btn {
+    color: #dc3545 !important;
+  }
+
+  .sidebar-icon-link.logout-btn {
+    color: #dc3545;
+  }
+
+  .sidebar-icon-link.logout-btn:hover {
+    color: #c82333;
+  }
+
+  /* Mobile Dropdown Styles */
   @media (max-width: 768px) {
-    .mobile-menu-btn {
+    .profile-dropdown {
+      width: 100%;
+    }
+    
+    .dropdown-content {
+      position: static;
+      box-shadow: none;
+      display: none;
+    }
+    
+    .dropdown-content.show {
       display: block;
-    }
-    
-    .nav-links {
-      display: none;
-    }
-    
-    .nav-actions {
-      display: none;
     }
   }
   
@@ -169,8 +240,87 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Rest of your existing styles... */
-  /* (Keep all your existing styles here) */
+  /* Navbar Styles */
+  .navbar {
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+  }
+
+  .nav-link {
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+  }
+
+  .nav-link:hover {
+    color: var(--black);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-icon {
+    color: var(--gray-700);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+  }
+
+  .nav-icon:hover {
+    color: var(--black);
+  }
+
+  .cart-count {
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-menu-btn {
+      display: block;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    .nav-actions .nav-icon span {
+      display: none;
+    }
+  }
 </style>
 
 <nav class="navbar">
@@ -194,20 +344,25 @@
     {{#if user}}
     <div class="nav-actions">
       <a href="/users/myorders" class="nav-icon">
-        <i class="fas fa-shopping-bag"></i> My Orders
+        <i class="fas fa-shopping-bag"></i> <span>My Orders</span>
       </a>
-      <a href="/users/userProfile" class="nav-icon">
-        <i class="fas fa-user"></i>
-      </a>
-      <a href="/users/cart" class="nav-icon">
-        <i class="fas fa-shopping-bag"></i>
-        <span class="cart-count">3</span>
-      </a>
+      
+      <!-- Profile Dropdown -->
+      <div class="profile-dropdown">
+        <button class="nav-icon profile-btn">
+          <i class="fas fa-user"></i> <span>Account</span>
+        </button>
+        <div class="dropdown-content">
+          <a href="/users/userProfile"><i class="fas fa-user-circle"></i> Profile</a>
+          <a href="/users/cart"><i class="fas fa-shopping-cart"></i> Cart</a>
+          <a href="/users/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+      </div>
     </div>
     {{else}}
     <div class="nav-actions">
       <a href="/users/login" class="nav-icon btn-btn-primary">
-        <i class="fas fa-user"></i> <span></span>LOGIN
+        <i class="fas fa-user"></i> <span>LOGIN</span>
       </a>
     </div>
     {{/if}}
@@ -245,6 +400,9 @@
       <a href="/users/cart" class="sidebar-icon-link">
         <i class="fas fa-shopping-bag"></i> Cart
         <span class="cart-count">3</span>
+      </a>
+      <a href="/users/logout" class="sidebar-icon-link logout-btn">
+        <i class="fas fa-sign-out-alt"></i> Logout
       </a>
     {{else}}
       <a href="/users/login" class="sidebar-icon-link">
@@ -287,5 +445,27 @@
       sidebarOverlay.classList.remove('active');
       document.body.style.overflow = '';
     });
+  });
+
+  // Profile dropdown toggle for mobile
+  const profileBtn = document.querySelector('.profile-btn');
+  if (profileBtn) {
+    profileBtn.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+        const dropdown = document.querySelector('.dropdown-content');
+        dropdown.classList.toggle('show');
+      }
+    });
+  }
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.profile-dropdown')) {
+      const dropdowns = document.querySelectorAll('.dropdown-content');
+      dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('show');
+      });
+    }
   });
 </script>

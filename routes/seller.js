@@ -17,7 +17,8 @@ const {
   shipOrder,
   getShippedOrders,
   getApprovedProducts,
-  getRejectedProducts
+  getRejectedProducts,
+  getAddress
 } = require("../controllers/seller-controller")
 const { checkSeller } = require("../middlewares/checkSeller")
 
@@ -38,7 +39,7 @@ router.get("/shipped-orders", checkSeller, getShippedOrders)
 router.get('/shipped/:id', checkSeller, shipOrder)
 router.get("/approved-products", checkSeller, getApprovedProducts)
 router.get("/rejected-products", checkSeller, getRejectedProducts)
-
+router.get('/getAddress/:id', checkSeller, getAddress)
 module.exports = router;
 
 

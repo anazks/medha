@@ -824,9 +824,25 @@
                     
                     // Simulate API call (replace with actual API call)
                     await simulateApiCall(formData);
+                    let response = await fetch('/users/addDeliveryAddress', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
                     
                     // Show success message
-                    successMessage.classList.add('show');
+                    console.log('Form submitted successfully:', formData,response);
+                    
+                    if(response.ok) {
+                        response = await response.json();
+                         successMessage.classList.add('show');
+                        console.log('Address saved:', response);
+                    } else {
+                        throw new Error('Failed to save address');
+                    }
+                   
                     
                     // Enable payment button
                     paymentBtn.disabled = false;

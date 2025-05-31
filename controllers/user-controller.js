@@ -631,10 +631,22 @@ const verifypayment = async (req, res) => {
 
         if (generated_signature === razorpay_signature) {
             console.log("Payment is successful");
-            let updateStatus = await CartModel.findOneAndUpdate(
-                { userId: user._id },
-                { $set: { status: "compleated" } }
-            );
+            // let updateStatus = await CartModel.findOneAndUpdate(
+            //     { userId: user._id },
+            //     { $set: { status: "compleated" } }
+            // );
+             await CartModel.updateOne(
+                                { userId: user._id },
+                                {
+                                    $set: {
+                                    "products.$[elem].status": "completed"
+                                    }
+                                },
+                                {
+                                    arrayFilters: [{ "elem.status": { $exists: false } }]
+                                }
+              );
+
             console.log(updateStatus, "updateStatus");
             return res.json({ message: "Payment is successful", success: true });
         } else {

@@ -22,6 +22,7 @@ var consultantRouter = require('./routes/consultant');
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
+
 app.set('view engine', 'hbs');
 
 app.use(session({
@@ -32,6 +33,9 @@ app.use(session({
 }))
 //session configring
 app.use(cors())
+hbs.registerHelper('eq', function(a, b, options) {
+  return a === b ? options.fn(this) : options.inverse(this);
+});
 
 async function connect() {
   try {

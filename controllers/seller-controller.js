@@ -1,8 +1,9 @@
 const SellerModel = require('../models/seller-model')
 const ProductModel = require('../models/product-model')
 const OrderModel = require('../models/order-model');
-
-const bcrypt = require("bcrypt")
+const AddressModal = require('../models/address-model')
+const bcrypt = require("bcrypt");
+const cartModel = require('../models/cart-model');
 
 
 const getSellerHomePage = async (req, res) => {
@@ -99,13 +100,32 @@ const addNewProduct = async function (req, res) {
 const getSellerOrders = async (req, res) => {
     try {
         let { seller } = req.session;
-        let orders = await OrderModel.find({ sellerId: seller._id})
+        // let orders = await OrderModel.find({ sellerId: seller._id})
+        const orders = await cartModel.find({ status: "compleated" });   
+        console.log(orders, "-------------------");
+        orders.map((obj)=>{
+            obj.products.map((product)=>{
+                console.log(product, "------------------console-"); 
+            })
+        })
         res.render('seller/orders', { title: "All Orders", orders, seller, homepage: true, completed: "completed orders" })
     } catch (error) {
         console.log(error);
         req.session.alertMessage = "Couldn't perform request Please Retry!!!";
         res.redirect("/seller")
     }
+}
+const getAddress = async(req,res)=>{
+        try {
+            let id = req.params.id;
+            console.log(id, "-------------------");
+            let userAddess = await AddressModal.find({});
+            console.log(userAddess, "-------------------");
+            return res.json(userAddess);
+        } catch (error) {
+            console.log(error);
+            req.session.alertMessage = "Couldn't perform request Please Retry!!!";
+        }
 }
 const getShippedOrders = async (req, res) => {
     try {
@@ -169,5 +189,6 @@ module.exports = {
     shipOrder,
     getShippedOrders,
     getApprovedProducts,
-    getRejectedProducts
+    getRejectedProducts,
+    getAddress
 }
