@@ -10,13 +10,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #d4b08c;
-      --primary-dark: #b08c6e;
-      --secondary: #3e4c59;
+      --primary: #000000;
+      --primary-dark: #333333;
+      --secondary: #ffffff;
       --light: #ffffff;
-      --dark: #212529;
-      --accent: #e8c9a9;
-      --background: #fcfbf9;
+      --dark: #000000;
+      --accent: #666666;
+      --background: #f8f8f8;
       --gray-light: #f5f5f5;
       --gray-medium: #e0e0e0;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
@@ -33,7 +33,7 @@
     
     body {
       background-color: var(--background);
-      color: var(--secondary);
+      color: var(--dark);
       font-family: 'Montserrat', sans-serif;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
@@ -42,7 +42,7 @@
     h1, h2, h3, h4, h5, h6 {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
-      color: var(--secondary);
+      color: var(--dark);
     }
     
     .container {
@@ -61,6 +61,7 @@
       border-radius: 10px;
       padding: 30px;
       box-shadow: var(--shadow-sm);
+      border: 1px solid var(--gray-medium);
     }
     
     .product-image {
@@ -72,6 +73,7 @@
       width: 100%;
       border-radius: 10px;
       box-shadow: var(--shadow-md);
+      border: 1px solid var(--gray-medium);
     }
     
     .product-info {
@@ -82,7 +84,7 @@
     .product-info h1 {
       font-size: 2.2rem;
       margin-bottom: 15px;
-      color: var(--secondary);
+      color: var(--dark);
     }
     
     .product-meta {
@@ -96,27 +98,27 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      color: var(--primary);
+      color: var(--dark);
       font-weight: 600;
     }
     
     .availability {
-      color: #28a745;
+      color: var(--accent);
       font-weight: 500;
     }
     
     .price {
       font-size: 1.8rem;
-      color: var(--primary);
+      color: var(--dark);
       font-weight: 700;
       margin: 20px 0;
     }
     
     .product-description {
-      color: var(--secondary);
+      color: var(--dark);
       line-height: 1.8;
       margin-bottom: 30px;
-      opacity: 0.9;
+      opacity: 0.8;
     }
     
     .product-details {
@@ -131,12 +133,12 @@
     .detail-label {
       font-weight: 600;
       min-width: 120px;
-      color: var(--secondary);
+      color: var(--dark);
     }
     
     .detail-value {
-      color: var(--secondary);
-      opacity: 0.9;
+      color: var(--dark);
+      opacity: 0.8;
     }
     
     /* Buttons */
@@ -162,11 +164,12 @@
       outline: none;
       position: relative;
       overflow: hidden;
+      text-decoration: none;
     }
     
     .btn-primary {
-      background-color: var(--primary);
-      color: white;
+      background-color: var(--dark);
+      color: var(--light);
       box-shadow: var(--shadow-sm);
     }
     
@@ -178,13 +181,13 @@
     
     .btn-outline {
       background-color: transparent;
-      border: 2px solid var(--primary);
-      color: var(--primary);
+      border: 2px solid var(--dark);
+      color: var(--dark);
     }
     
     .btn-outline:hover {
-      background-color: var(--primary);
-      color: white;
+      background-color: var(--dark);
+      color: var(--light);
       transform: translateY(-2px);
       box-shadow: var(--shadow-sm);
     }
@@ -208,6 +211,7 @@
       font-size: 2rem;
       display: inline-block;
       padding-bottom: 15px;
+      color: var(--dark);
     }
     
     .section-title h2::after {
@@ -218,7 +222,7 @@
       transform: translateX(-50%);
       width: 80px;
       height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
+      background: linear-gradient(90deg, var(--dark), var(--accent));
       border-radius: 3px;
     }
     
@@ -235,11 +239,13 @@
       box-shadow: var(--shadow-sm);
       transition: var(--transition);
       cursor: pointer;
+      border: 1px solid var(--gray-medium);
     }
     
     .related-card:hover {
       transform: translateY(-5px);
       box-shadow: var(--shadow-md);
+      border-color: var(--dark);
     }
     
     .related-image {
@@ -257,16 +263,17 @@
       margin-bottom: 10px;
       font-weight: 600;
       transition: var(--transition);
+      color: var(--dark);
     }
     
     .related-card:hover .related-title {
-      color: var(--primary);
+      color: var(--accent);
     }
     
     .related-price {
       font-size: 1.1rem;
       font-weight: 700;
-      color: var(--primary);
+      color: var(--dark);
       margin-bottom: 15px;
     }
     
@@ -274,9 +281,51 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      color: var(--primary);
+      color: var(--dark);
       font-size: 0.9rem;
       margin-bottom: 15px;
+    }
+    
+    /* Continue Shopping Button */
+    .continue-shopping {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      background-color: var(--dark);
+      color: var(--light);
+      padding: 12px 24px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .continue-shopping:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+      color: var(--light);
+    }
+    
+    .continue-shopping i {
+      font-size: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .continue-shopping {
+        top: 15px;
+        right: 15px;
+        padding: 10px 20px;
+        font-size: 12px;
+      }
     }
     
     /* Responsive adjustments */
@@ -315,7 +364,13 @@
   </style>
 </head>
 <body>
-  {{> userHeader}}
+  <!-- Fixed Continue Shopping Button -->
+  <a href="/" class="continue-shopping">
+    <i class="fas fa-arrow-left"></i>
+    Continue Shopping
+  </a>
+  
+  {{!-- {{> userHeader}} --}}
   
   <div class="container" style="margin-top: 10%;">
     <div class="product-wrapper">
@@ -360,9 +415,9 @@
           <a href="/users/addtoCart/{{product._id}}" class="btn btn-outline">
             <i class="fas fa-shopping-cart btn-icon"></i> Add to Cart
           </a>
-          <a href="/users/buynow/{{product._id}}/1" class="btn btn-primary">
+          {{!-- <a href="/users/buynow/{{product._id}}/1" class="btn btn-primary">
             <i class="fas fa-bolt btn-icon"></i> Buy Now
-          </a>
+          </a> --}}
         </div>
       </div>
     </div>

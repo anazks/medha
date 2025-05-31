@@ -164,9 +164,10 @@ const getCartProducts = async (req, res) => {
         let { _id } = req.session.user
         let myCart = await CartModel.findOne({ userId: _id })
         let relatedProducts = new Set() // Using a Set to avoid duplicates
+            console.log(myCart,"----------cart")
         
         if (myCart) {
-            console.log(myCart.products)
+            console.log(myCart.products,"----------products in cart")
             let total = 0;
             let totalMRP = 0
           
@@ -306,15 +307,25 @@ const confirmPayment = async (req, res) => {
 
 const getMyOrders = async (req, res) => {
     try {
-        let { user } = req.session;
-        let orders = await OrderModel.find({ buyerId: user._id})
-        res.render('user/myorders', { product: orders, user, homepage: true })
+        const { user } = req.session;
+
+        // Get all completed orders for this user
+        const orders = await cartModel.find({ userId: user._id, status: "compleated" });   
+        console.log(orders, "orders");
+
+        // Combine all products from the orders into one array
+        const products = orders.flatMap(order => order.products);
+
+        console.log(products, "products from completed orders");
+        
+        res.render('user/myorders', { products, user, homepage: true });
     } catch (error) {
-        console.log(error);
-        req.session.alertMessage = "Couldn't perform request Please Retry!!!";
-        res.redirect("/users/home")
+        console.error(error);
+        req.session.alertMessage = "Couldn't perform request. Please retry!";
+        res.redirect("/users/home");
     }
-}
+};
+
 
 const addLike = async (req, res) => {
     try {
@@ -604,10 +615,12 @@ const addDeliveryAddress = async (req, res) => {
     }
 }
 const crypto = require('crypto');
+const cartModel = require("../models/cart-model");
 
 const verifypayment = async (req, res) => {
     try {
         console.log(req.body, "req.body");
+        let { user } = req.session;
         const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
         // Generate expected signature
@@ -618,9 +631,19 @@ const verifypayment = async (req, res) => {
 
         if (generated_signature === razorpay_signature) {
             console.log("Payment is successful");
+            let updateStatus = await CartModel.findOneAndUpdate(
+                { userId: user._id },
+                { $set: { status: "compleated" } }
+            );
+            console.log(updateStatus, "updateStatus");
             return res.json({ message: "Payment is successful", success: true });
         } else {
             console.log("Payment verification failed");
+             let updateStatus = await CartModel.findOneAndUpdate(
+                { userId: user._id },
+                { $set: { status: "failed" } }
+            );
+            console.log(updateStatus, "updateStatus");
             return res.json({ message: "Payment verification failed", success: false });
         }
     } catch (error) {

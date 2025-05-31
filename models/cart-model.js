@@ -4,8 +4,13 @@ const mongoose = require("mongoose");
 
 const CartSchema = new mongoose.Schema({
     userId: String,
-    products: Array
-})
+    products: Array,
+    status: {
+        type: String,
+        default: "Cart",    
+    },
+    
+}, { timestamps: true });
 
 
 
