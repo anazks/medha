@@ -4,7 +4,113 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <style>
-  /* Mobile Sidebar Styles */
+  /* Your existing styles */
+  :root {
+    --black: #000000;
+    --white: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --border-radius: 8px;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: var(--white);
+    color: var(--gray-900);
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Navbar Styles - Made more responsive */
+  .navbar {
+    background-color: var(--white);
+    box-shadow: var(--shadow-sm);
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+  }
+
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+  }
+
+  .nav-link {
+    color: var(--gray-700);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .nav-link:hover {
+    color: var(--black);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-icon {
+    color: var(--gray-700);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .nav-icon:hover {
+    color: var(--black);
+  }
+
+  .cart-count {
+    background-color: var(--black);
+    color: var(--white);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-left: 5px;
+  }
+
+  /* Mobile Sidebar Styles - Enhanced for responsiveness */
   .mobile-menu-btn {
     display: none;
     background: none;
@@ -13,6 +119,7 @@
     color: var(--gray-700);
     cursor: pointer;
     transition: var(--transition);
+    padding: 5px;
   }
   
   .mobile-menu-btn:hover {
@@ -121,7 +228,7 @@
     color: var(--black);
   }
 
-  /* Profile Dropdown Styles */
+  /* Profile Dropdown Styles - Made more responsive */
   .profile-dropdown {
     position: relative;
     display: inline-block;
@@ -134,6 +241,9 @@
     padding: 0;
     margin: 0;
     color: var(--gray-700);
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   .dropdown-content {
@@ -189,123 +299,15 @@
     color: #c82333;
   }
 
-  /* Mobile Dropdown Styles */
-  @media (max-width: 768px) {
-    .profile-dropdown {
-      width: 100%;
+  /* Responsive Breakpoints */
+  @media (max-width: 992px) {
+    .nav-links {
+      gap: 15px;
     }
     
-    .dropdown-content {
-      position: static;
-      box-shadow: none;
-      display: none;
+    .nav-actions {
+      gap: 15px;
     }
-    
-    .dropdown-content.show {
-      display: block;
-    }
-  }
-  
-  /* Your existing styles */
-  :root {
-    --black: #000000;
-    --white: #ffffff;
-    --gray-100: #f8f9fa;
-    --gray-200: #e9ecef;
-    --gray-300: #dee2e6;
-    --gray-400: #ced4da;
-    --gray-500: #adb5bd;
-    --gray-600: #6c757d;
-    --gray-700: #495057;
-    --gray-800: #343a40;
-    --gray-900: #212529;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-    --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    --border-radius: 8px;
-  }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    background-color: var(--white);
-    color: var(--gray-900);
-    font-family: 'Montserrat', sans-serif;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* Navbar Styles */
-  .navbar {
-    background-color: var(--white);
-    box-shadow: var(--shadow-sm);
-    padding: 15px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
-
-  .nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-  }
-
-  .nav-link {
-    color: var(--gray-700);
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-  }
-
-  .nav-link:hover {
-    color: var(--black);
-  }
-
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-  }
-
-  .nav-icon {
-    color: var(--gray-700);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: var(--transition);
-  }
-
-  .nav-icon:hover {
-    color: var(--black);
-  }
-
-  .cart-count {
-    background-color: var(--black);
-    color: var(--white);
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    margin-left: 5px;
   }
 
   @media (max-width: 768px) {
@@ -320,6 +322,44 @@
     .nav-actions .nav-icon span {
       display: none;
     }
+    
+    .profile-dropdown .profile-btn span {
+      display: none;
+    }
+    
+    /* Mobile Dropdown Styles */
+    .profile-dropdown {
+      width: auto;
+    }
+    
+    .dropdown-content {
+      position: absolute;
+      right: 0;
+      box-shadow: var(--shadow-md);
+      display: none;
+    }
+    
+    .dropdown-content.show {
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .nav-container {
+      padding: 0 15px;
+    }
+    
+    .sidebar {
+      width: 260px;
+    }
+    
+    .sidebar-header {
+      padding: 15px;
+    }
+    
+    .sidebar-links, .sidebar-actions {
+      padding: 15px;
+    }
   }
 </style>
 
@@ -330,7 +370,7 @@
     </button>
     
     <a href="/" class="logo">
-      <img src="/images/news/logo.jpg" style="width: 100px;height:70px" alt="">
+      <img src="/images/news/logo.jpg" style="width: 100px;height:70px" alt="Logo">
     </a>
     
     <ul class="nav-links">
@@ -374,7 +414,7 @@
 <aside class="sidebar">
   <div class="sidebar-header">
     <a href="/" class="sidebar-logo">
-      <img src="/images/news/logo.jpg" style="width: 80px;height:50px" alt="">
+      <img src="/images/news/logo.jpg" style="width: 80px;height:50px" alt="Logo">
     </a>
     <button class="sidebar-close">
       <i class="fas fa-times"></i>
@@ -398,7 +438,7 @@
         <i class="fas fa-user"></i> Profile
       </a>
       <a href="/users/cart" class="sidebar-icon-link">
-        <i class="fas fa-shopping-bag"></i> Cart
+        <i class="fas fa-shopping-cart"></i> Cart
         <span class="cart-count">3</span>
       </a>
       <a href="/users/logout" class="sidebar-icon-link logout-btn">
@@ -453,6 +493,7 @@
     profileBtn.addEventListener('click', (e) => {
       if (window.innerWidth <= 768) {
         e.preventDefault();
+        e.stopPropagation();
         const dropdown = document.querySelector('.dropdown-content');
         dropdown.classList.toggle('show');
       }
