@@ -18,7 +18,10 @@ const {
   getShippedOrders,
   getApprovedProducts,
   getRejectedProducts,
-  getAddress
+  getAddress,
+  deleteProdcut,
+  getUpdatedForm,
+  updateProduct
 } = require("../controllers/seller-controller")
 const { checkSeller } = require("../middlewares/checkSeller")
 
@@ -35,11 +38,14 @@ router.get('/addProduct', checkSeller, getAddProductPage)
 router.post('/addProduct', checkSeller, addNewProduct)
 router.get("/orders", checkSeller, getSellerOrders)
 router.get("/shipped-orders", checkSeller, getShippedOrders)
-
+router.get('/delete-product/:id', checkSeller,deleteProdcut)
 router.get('/shipped/:id', checkSeller, shipOrder)
 router.get("/approved-products", checkSeller, getApprovedProducts)
 router.get("/rejected-products", checkSeller, getRejectedProducts)
 router.get('/getAddress/:id', checkSeller, getAddress)
+router.get('/edit-product/:id', checkSeller, getUpdatedForm)
+router.post('/updateProduct/:id',checkSeller, updateProduct);
+
 module.exports = router;
 
 

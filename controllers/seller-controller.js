@@ -175,7 +175,78 @@ const getRejectedProducts = async (req, res) => {
         res.redirect("/seller")
     }
 }
+const deleteProdcut = async (req, res) => {
+    try {
+        let { id } = req.params;
+        console.log(id, "-------------------");
+        await ProductModel.findByIdAndDelete(id);
+        req.session.alertMessage = "Product Deleted Successfully";
+        res.json({ status: true, message: "Product Deleted Successfully" });
+    } catch (error) {
+        console.log(error);
+        req.session.alertMessage = "Couldn't perform request Please Retry!!!";
+        res.json({ status: false, message: "Couldn't perform request Please Retry!!!" });
+    }
+}
+const getUpdatedForm = async (req, res) => {
+    try {
+        let { id } = req.params;
+        console.log(id, "-------------------");
+        let product = await ProductModel.findById(id);
+        console.log(product, "-------------------");
+        res.render('seller/updateProduct', { product, homepage: true });
+    } catch (error) {
+        console.log(error);
+        req.session.alertMessage = "Couldn't perform request Please Retry!!!";
+        res.redirect("/seller")
+    }
+}
+const updateProduct = async function (req, res) {
+    try {
+        console.log(req.body, "------------------------");
+        let { id } = req.params;
+        
+        // Find the existing product first
+        let existingProduct = await ProductModel.findById(id);
+        if (!existingProduct) {
+            req.session.alertMessage = "Product not found!";
+            return res.redirect("/seller/sellerHome");
+        }
 
+        // Update the product with new data
+        let updatedProduct = await ProductModel.findByIdAndUpdate(
+            id, 
+            req.body, 
+            { new: true, runValidators: true }
+        );
+
+        // Handle image update if new image is provided
+        if (req.files && req.files.image) {
+            let { image } = req.files;
+            
+            // Save new image with product ID as filename
+            image.mv('./public/images/product/' + id + ".jpg").then((err) => {
+                if (!err) {
+                    req.session.alertMessage = "Product updated successfully";
+                    return res.redirect('/seller/sellerHome');
+                } else {
+                    console.log("Image upload error:", err);
+                    req.session.alertMessage = "Product updated but image upload failed";
+                    return res.redirect('/seller/sellerHome');
+                }
+            });
+        } else {
+            // No new image provided, just update text data
+            req.session.alertMessage = "Product updated successfully";
+            res.redirect('/seller/sellerHome');
+        }
+        
+    } catch (error) {
+        console.log(error);
+        req.session.alertMessage = "Error Occurred. Please Retry !!!";
+        res.redirect("/seller/sellerHome");
+    }
+}
 module.exports = {
     getSellerLoginPage,
     getSellerSignupPage,
@@ -190,5 +261,8 @@ module.exports = {
     getShippedOrders,
     getApprovedProducts,
     getRejectedProducts,
-    getAddress
+    getAddress,
+    deleteProdcut,
+    getUpdatedForm,
+    updateProduct
 }

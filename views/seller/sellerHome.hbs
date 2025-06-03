@@ -244,14 +244,14 @@
 <script>
   function editProduct(productId) {
     // Redirect to edit page or show edit modal
-    window.location.href = `/edit-product/${productId}`;
+    window.location.href = `/seller/edit-product/${productId}`;
   }
 
   function deleteProduct(productId) {
     if (confirm('Are you sure you want to delete this product?')) {
       // Send delete request
-      fetch(`/delete-product/${productId}`, {
-        method: 'DELETE'
+      fetch(`/seller/delete-product/${productId}`, {
+        method: 'GET'
       })
       .then(response => {
         if (response.ok) {
