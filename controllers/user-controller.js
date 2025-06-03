@@ -595,7 +595,11 @@ const checkout = async (req, res) => {
     console.log(response, product,"response");
     let products = product.products
     console.log(products, "products");
-    res.render("user/Confirmation", { user, response,products, homepage: true });
+    let subTotal = 0;
+    products.forEach((item) => {
+        subTotal += item.item.price * item.quantity;
+    });
+    res.render("user/Confirmation", { user, response,products, homepage: true,subTotal });
     } catch (error) {
        console.log(error); 
     }

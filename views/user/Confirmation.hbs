@@ -654,21 +654,24 @@
                 <h3>Order Summary</h3>
                 <span class="text-muted" style="font-size: 0.875rem;">Placed on June 1, 2023</span>
             </div>
+        {{#each products}}
             <div class="card-body">
                 <div class="order-item">
                     <div class="item-image">
                         <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Shoes">
                     </div>
                     <div class="item-details">
-                        <h4 class="item-name">Premium Nike Shoes</h4>
+                        <h4 class="item-name">{{item.productName}}</h4>
                         <div class="item-seller">Sold by: Medha Clothings</div>
                         <div class="item-price">
-                            <span class="current-price">₹18,000</span>
-                            <span class="original-price">₹20,000</span>
+                            <span class="current-price">₹{{item.price}}</span>
+                            <span class="original-price">₹{{item.mrp}}</span>
                         </div>
                     </div>
                 </div>
             </div>
+        {{/each}}
+
         </div>
 
         <!-- Payment Details -->
@@ -680,11 +683,11 @@
             <div class="card-body">
                 <div class="detail-row">
                     <span class="detail-label">Subtotal:</span>
-                    <span class="detail-value" id="amount">18000</span>
+                    <span class="detail-value" id="amount">{{subTotal}}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Shipping:</span>
-                    <span class="detail-value">Free</span>
+                    <span class="detail-value">--</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Currency:</span>
@@ -692,7 +695,7 @@
                 </div>
                 <div class="detail-row total-row">
                     <span class="font-weight-bold">Total:</span>
-                    <span class="font-weight-bold">₹<span id="total-amount">18000</span></span>
+                    <span class="font-weight-bold">₹<span id="total-amount">{{subTotal}}</span></span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Order ID:</span>
@@ -965,7 +968,7 @@
                 
                 const options = {
                     "key": "rzp_test_xGT71OZKAShDDW", // Replace with your actual Razorpay Key ID
-                    "amount": amount, // Amount in paisa
+                    "amount": amount * 100, // Amount in paisa
                     "currency": "INR",
                     "name": "Medha Clothings",
                     "description": "Order Payment",
