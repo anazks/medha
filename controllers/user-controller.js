@@ -71,7 +71,8 @@ const doSignup = async (req, res) => {
         let { password } = req.body;
         req.body.password = await bcrypt.hash(password, 10)
         const user = await UserModel.create(req.body);
-        res.redirect('/users/login')
+        req.session.user = user;
+        res.redirect("/users/home");
     } catch (error) {
         console.log(error);
         req.session.alertMessage = "Couldn't perform signup Please Retry (with a new email) !!!";

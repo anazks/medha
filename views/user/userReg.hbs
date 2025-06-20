@@ -3,166 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STITCH | Join Our Fashion Design Platform</title>
+  <title>MEDHA CLOTHINGS | Fashion Design Platform</title>
   <style>
     :root {
-      --primary: #d4b08c;
-      --secondary: #987654;
+      --primary: #8b5a2b;
+      --secondary: #6d4c41;
       --light: #ffffff;
-      --dark: #4a3f35;
-      --accent: #c19a6b;
+      --dark: #3e2723;
+      --accent: #a78a7f;
+      --text: #5d4037;
+      --light-bg: #f5f5f5;
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', system-ui, -apple-system, sans-serif;
     }
     
     body {
-      background-color: #fafafa;
+      background-color: var(--light-bg);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-image: linear-gradient(135deg, rgba(212, 176, 140, 0.08) 10%, rgba(193, 154, 107, 0.12) 100%);
-      padding: 40px 20px;
+      padding: 20px;
+      color: var(--text);
     }
     
     .container {
-      display: flex;
-      max-width: 900px;
-      min-height: 600px;
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      max-width: 500px;
+      background-color: white;
       border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       overflow: hidden;
     }
     
-    .left-panel {
-      flex: 1;
+    .header {
       background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 40px;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .left-panel::before {
-      content: "";
-      position: absolute;
-      top: -50px;
-      left: -50px;
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-    
-    .left-panel::after {
-      content: "";
-      position: absolute;
-      bottom: -80px;
-      right: -80px;
-      width: 300px;
-      height: 300px;
-      border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      text-align: center;
     }
     
     .brand {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 10px;
     }
     
     .tagline {
-      font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
+      font-size: 16px;
+      opacity: 0.9;
     }
     
-    .benefits {
-      list-style: none;
-      margin-top: 20px;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .benefits li {
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-    }
-    
-    .benefits li::before {
-      content: "✓";
-      margin-right: 10px;
-      font-weight: bold;
-    }
-    
-    .right-panel {
-      flex: 1;
-      background-color: white;
-      padding: 40px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    .form-container {
+      padding: 30px;
     }
     
     .register-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
     
     h2 {
       color: var(--dark);
-      font-size: 24px;
-      margin-bottom: 10px;
+      font-size: 22px;
+      margin-bottom: 8px;
     }
     
-    p {
-      color: #7d6e5d;
-    }
-    
-    .form-row {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
+    .subtitle {
+      color: var(--text);
+      font-size: 14px;
+      opacity: 0.8;
     }
     
     .form-group {
       margin-bottom: 20px;
-      flex: 1;
     }
     
     .form-group label {
       display: block;
       margin-bottom: 8px;
-      color: var(--dark);
+      font-size: 14px;
       font-weight: 500;
+      color: var(--dark);
     }
     
     .form-control {
       width: 100%;
       padding: 12px 15px;
-      border: 1px solid #e8d8c7;
-      border-radius: 6px;
-      font-size: 16px;
-      transition: border-color 0.3s;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s;
+      background-color: #fafafa;
     }
     
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(212, 176, 140, 0.2);
+      background-color: white;
+      box-shadow: 0 0 0 3px rgba(139, 90, 43, 0.1);
     }
     
     .password-container {
@@ -175,29 +119,32 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #a99480;
+      color: var(--accent);
+      font-size: 18px;
     }
     
     .terms {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 20px;
+      margin: 25px 0;
     }
     
     .terms input {
       margin-right: 10px;
-      margin-top: 5px;
+      margin-top: 3px;
     }
     
     .terms label {
-      color: #7d6e5d;
-      font-size: 14px;
+      color: var(--text);
+      font-size: 13px;
       line-height: 1.5;
+      opacity: 0.9;
     }
     
     .terms a {
-      color: var(--secondary);
+      color: var(--primary);
       text-decoration: none;
+      font-weight: 500;
     }
     
     .terms a:hover {
@@ -206,11 +153,11 @@
     
     .submit-btn {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background-color: var(--primary);
       color: white;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
@@ -225,8 +172,9 @@
     .divider {
       display: flex;
       align-items: center;
-      margin: 20px 0;
-      color: #7d6e5d;
+      margin: 25px 0;
+      color: #bdbdbd;
+      font-size: 14px;
     }
     
     .divider::before,
@@ -234,45 +182,22 @@
       content: "";
       flex: 1;
       height: 1px;
-      background-color: #e8d8c7;
+      background-color: #e0e0e0;
     }
     
     .divider span {
-      padding: 0 15px;
-    }
-    
-    .social-login {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-    
-    .social-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background-color: #f8f5f2;
-      border: 1px solid #e8d8c7;
-      cursor: pointer;
-      transition: all 0.3s;
-      color: var(--secondary);
-    }
-    
-    .social-btn:hover {
-      background-color: #f0e9e2;
+      padding: 0 12px;
     }
     
     .login-link {
       text-align: center;
-      color: #7d6e5d;
+      font-size: 14px;
+      color: var(--text);
+      margin-top: 20px;
     }
     
     .login-link a {
-      color: var(--secondary);
+      color: var(--primary);
       text-decoration: none;
       font-weight: 600;
     }
@@ -281,134 +206,85 @@
       text-decoration: underline;
     }
     
-    .designer-type {
-      margin-bottom: 20px;
-    }
-    
-    .designer-type label {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--dark);
-      font-weight: 500;
-    }
-    
-    .radio-group {
-      display: flex;
-      gap: 20px;
-    }
-    
-    .radio-option {
-      display: flex;
-      align-items: center;
-    }
-    
-    .radio-option input {
-      margin-right: 8px;
-    }
-
-    .preference-section h3 {
-      color: var(--dark);
-      margin-bottom: 15px;
-      font-size: 18px;
-    }
-
-    .checkbox-group, .color-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .checkbox-item, .color-checkbox {
-      display: flex;
-      align-items: center;
-      margin-right: 15px;
-    }
-
-    .checkbox-item label, .color-checkbox label {
-      margin-left: 5px;
-      color: #7d6e5d;
-    }
-
-    select {
-      background-color: #fff;
-    }
-    
-    @media (max-width: 768px) {
+    /* Responsive adjustments */
+    @media (max-width: 480px) {
       .container {
-        flex-direction: column;
-        height: auto;
-        max-width: 90%;
+        border-radius: 10px;
       }
       
-      .left-panel {
-        display: none;
+      .header {
+        padding: 25px 20px;
       }
       
-      .form-row {
-        flex-direction: column;
-        gap: 0;
+      .brand {
+        font-size: 24px;
+      }
+      
+      .tagline {
+        font-size: 14px;
+      }
+      
+      .form-container {
+        padding: 25px 20px;
+      }
+      
+      h2 {
+        font-size: 20px;
+      }
+      
+      .form-control {
+        padding: 12px;
       }
     }
   </style>
 </head>
 <body>
-<div class="container">
-    <div class="left-panel">
-      <h1 class="brand">MEDHA CLOTHINGS</h1>
-      <p class="tagline">Join our community of fashion designers and bring your creative vision to life.</p>
-      <ul class="benefits">
-        <li>Free portfolio to showcase your designs</li>
-        <li>Connect with brands and potential clients</li>
-        <li>Access to exclusive design tools and resources</li>
-        <li>Participate in virtual fashion shows</li>
-      </ul>
+  <div class="container">
+    <div class="header">
+      <div class="brand">MEDHA CLOTHINGS</div>
+      <div class="tagline">Join our fashion community</div>
     </div>
-    <div class="right-panel">
+    
+    <div class="form-container">
       <div class="register-header">
         <h2>Create Your Account</h2>
-        <p>Start your fashion design journey today</p>
+        <p class="subtitle">Start your fashion journey today</p>
       </div>
+      
       <form action="/users/signup" method="post">
         <div class="form-group">
           <label for="userName">Username</label>
-          <input type="text" class="form-control" id="userName" name="userName" placeholder="Choose a unique username" required>
+          <input type="text" class="form-control" id="userName" name="userName" placeholder="Choose a username" required>
         </div>
         
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+          <input type="email" class="form-control" id="email" name="email" placeholder="your@email.com" required>
         </div>
         
         <div class="form-group">
           <label for="mobile">Mobile number</label>
-          <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Enter your Mobile" required>
+          <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Phone number" required>
         </div>
         
         <div class="form-group">
           <label for="password">Password</label>
           <div class="password-container">
-            <input type="password" class="form-control" id="password" name="password" placeholder="Create a strong password" required>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
             <span class="toggle-password">👁️</span>
           </div>
         </div>
-
-       
+        
         <div class="terms">
           <input type="checkbox" id="terms" name="terms" required>
-          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand my data will be used as described.</label>
+          <label for="terms">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
         </div>
         
         <button type="submit" class="submit-btn">Create Account</button>
         
         <div class="divider">
-          <span>or sign up with</span>
+          <span>or</span>
         </div>
-        
-        {{!-- <div class="social-login">
-          <div class="social-btn">G</div>
-          <div class="social-btn">f</div>
-          <div class="social-btn">in</div>
-        </div> --}}
         
         <div class="login-link">
           Already have an account? <a href="/users/login">Log In</a>
@@ -416,5 +292,15 @@
       </form>
     </div>
   </div>
+
+  <script>
+    // Toggle password visibility
+    document.querySelector('.toggle-password').addEventListener('click', function() {
+      const passwordInput = document.getElementById('password');
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+    });
+  </script>
 </body>
 </html>
