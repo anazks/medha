@@ -906,10 +906,15 @@
               <span class="price-value">₹{{total}}</span>
             </div>
             
-            <a href="/users/checkout" class="action-btns btn-primary checkout-btns">
+            {{!-- <a href="/users/checkout" class="action-btns btn-primary checkout-btns">
               <i class="fas fa-lock"></i> Proceed to Checkout
             </a>
-            
+             --}}
+
+              {{!-- <button class="action-btns btn-outline" onclick="openCODModal('{{item._id}}', '{{item.productName}}', {{item.price}}, {{quantity}})">
+                      <i class="fas fa-money-bill-wave"></i> Buy Now (COD)
+                    </button> --}}
+
             <div class="payment-methods">
               <div class="payment-method">Visa</div>
               <div class="payment-method">MC</div>
